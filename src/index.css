@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+/* Custom Theme Variables */
+@theme {
+  /* Premium Dark Theme Colors */
+  --color-bg-primary: #0a0a0f;
+  --color-bg-secondary: #12121a;
+  --color-bg-card: #1a1a28;
+  --color-bg-card-hover: #22222f;
+
+  /* Accent Colors */
+  --color-accent-primary: #e94560;
+  --color-accent-secondary: #0f3460;
+  --color-accent-gold: #f4d160;
+  --color-accent-blue: #4361ee;
+  --color-accent-purple: #7209b7;
+  --color-accent-cyan: #00d4ff;
+
+  /* Text Colors */
+  --color-text-primary: #eaeaea;
+  --color-text-secondary: #a0a0a0;
+  --color-text-muted: #6b6b7b;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
+  --gradient-gold: linear-gradient(135deg, #f4d160 0%, #e94560 100%);
+  --gradient-blue: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
+  --gradient-card: linear-gradient(145deg, rgba(26, 26, 40, 0.9) 0%, rgba(18, 18, 26, 0.9) 100%);
+
+  /* Border */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+
+  /* Shadows */
+  --shadow-glow: 0 0 30px rgba(233, 69, 96, 0.3);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  /* Fonts */
+  --font-family-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-body: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
+
+/* Custom Utility Classes */
+@utility glass {
+  background: rgba(26, 26, 40, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+}
+
+@utility glass-hover {
+  &:hover {
+    background: rgba(34, 34, 47, 0.8);
+    border-color: var(--color-border-hover);
+  }
+}
+
+@utility text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility text-gradient-gold {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility glow {
+  box-shadow: var(--shadow-glow);
+}
+
+@utility card-shadow {
+  box-shadow: var(--shadow-card);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(233, 69, 96, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(233, 69, 96, 0.6); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@utility animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@utility animate-slide-in {
+  animation: slideIn 0.4s ease-out forwards;
+}
+
+@utility animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
