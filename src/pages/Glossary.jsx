@@ -10,7 +10,8 @@ import {
   User,
   Cpu,
   Scale,
-  Landmark
+  Landmark,
+  ChevronLeft
 } from 'lucide-react';
 
 import { definitions, definitionCategories } from '../data/definitions';
@@ -59,10 +60,14 @@ export default function Glossary() {
   }, [filteredDefinitions]);
 
   return (
-    <div className="flex gap-6 h-[calc(100vh-8rem)]">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-auto lg:h-[calc(100vh-8rem)]">
       {/* Left Panel - Definition List */}
       <div
-        className="w-96 flex-shrink-0 rounded-2xl overflow-hidden flex flex-col"
+        className={`
+          w-full lg:w-96 flex-shrink-0 rounded-2xl overflow-hidden flex flex-col
+          ${selectedDefinition ? 'hidden lg:flex' : 'flex'}
+          max-h-[70vh] lg:max-h-none
+        `}
         style={{
           background: 'rgba(26, 26, 40, 0.6)',
           border: '1px solid rgba(255, 255, 255, 0.08)'
@@ -94,7 +99,7 @@ export default function Glossary() {
               className={`
                 flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-all
                 ${selectedCategory === 'all'
-                  ? 'bg-[#e94560] text-white'
+                  ? 'bg-[#00d4ff] text-black font-semibold'
                   : 'bg-white/5 text-gray-400 hover:text-white'
                 }
               `}
@@ -126,7 +131,7 @@ export default function Glossary() {
         <div className="flex-1 overflow-y-auto p-3">
           {Object.entries(alphabeticalGroups).map(([letter, defs]) => (
             <div key={letter} className="mb-4">
-              <div className="sticky top-0 bg-[#12121a] px-2 py-1 text-xs font-bold text-[#e94560] uppercase z-10">
+              <div className="sticky top-0 bg-[#0a0a0f] px-2 py-1 text-xs font-bold text-[#00d4ff] uppercase z-10">
                 {letter}
               </div>
               <div className="space-y-1">
@@ -142,16 +147,16 @@ export default function Glossary() {
                       className={`
                         w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all
                         ${selectedDefinition === def.id
-                          ? 'bg-[#e94560]/10 border border-[#e94560]/30'
+                          ? 'bg-[#00d4ff]/10 border border-[#00d4ff]/30'
                           : 'hover:bg-white/5'
                         }
                       `}
                     >
                       <div
                         className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                        style={{ background: `${category?.color || '#4361ee'}20` }}
+                        style={{ background: `${category?.color || '#5a7ff0'}20` }}
                       >
-                        <Icon className="w-4 h-4" style={{ color: category?.color || '#4361ee' }} />
+                        <Icon className="w-4 h-4" style={{ color: category?.color || '#5a7ff0' }} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className={`font-medium truncate ${selectedDefinition === def.id ? 'text-white' : 'text-gray-300'}`}>
@@ -183,7 +188,10 @@ export default function Glossary() {
 
       {/* Right Panel - Definition Detail */}
       <div
-        className="flex-1 rounded-2xl overflow-hidden"
+        className={`
+          flex-1 rounded-2xl overflow-hidden
+          ${!selectedDefinition ? 'hidden lg:block' : 'block'}
+        `}
         style={{
           background: 'rgba(26, 26, 40, 0.6)',
           border: '1px solid rgba(255, 255, 255, 0.08)'
@@ -196,16 +204,25 @@ export default function Glossary() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="p-8 h-full overflow-y-auto"
+              className="p-4 lg:p-8 h-full overflow-y-auto"
             >
+              {/* Mobile Back Button */}
+              <button
+                onClick={() => setSelectedDefinition(null)}
+                className="lg:hidden flex items-center gap-2 mb-4 text-gray-400 hover:text-white transition-colors"
+              >
+                <ChevronLeft size={20} />
+                <span className="text-sm">Back to definitions</span>
+              </button>
+
               {/* Header */}
               <div className="mb-8">
                 <div className="flex items-center gap-3 mb-4">
                   <span
                     className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{
-                      background: `${definitionCategories.find(c => c.id === currentDefinition.category.toLowerCase())?.color || '#4361ee'}20`,
-                      color: definitionCategories.find(c => c.id === currentDefinition.category.toLowerCase())?.color || '#4361ee'
+                      background: `${definitionCategories.find(c => c.id === currentDefinition.category.toLowerCase())?.color || '#5a7ff0'}20`,
+                      color: definitionCategories.find(c => c.id === currentDefinition.category.toLowerCase())?.color || '#5a7ff0'
                     }}
                   >
                     {currentDefinition.category}
@@ -247,7 +264,7 @@ export default function Glossary() {
                         key={section}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 text-gray-300 hover:bg-white/10 transition-colors cursor-pointer"
                       >
-                        <span className="text-[#e94560] font-mono">S.{section}</span>
+                        <span className="text-[#00d4ff] font-mono">S.{section}</span>
                         <ExternalLink className="w-3 h-3 text-gray-500" />
                       </span>
                     ))}
@@ -260,7 +277,7 @@ export default function Glossary() {
                 <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
                   Category Context
                 </h3>
-                <div className="grid grid-cols-5 gap-3">
+                <div className="grid grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-3">
                   {definitionCategories.map(cat => {
                     const isActive = cat.id === currentDefinition.category.toLowerCase();
                     const count = definitions.filter(d => d.category.toLowerCase() === cat.id).length;
@@ -292,11 +309,11 @@ export default function Glossary() {
               <div
                 className="p-6 rounded-xl"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(233, 69, 96, 0.1) 0%, rgba(15, 52, 96, 0.1) 100%)',
-                  border: '1px solid rgba(233, 69, 96, 0.2)'
+                  background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%)',
+                  border: '1px solid rgba(0, 212, 255, 0.2)'
                 }}
               >
-                <h3 className="text-sm font-semibold text-[#e94560] mb-2 flex items-center gap-2">
+                <h3 className="text-sm font-semibold text-[#00d4ff] mb-2 flex items-center gap-2">
                   <BookMarked className="w-4 h-4" />
                   In Simple Terms
                 </h3>

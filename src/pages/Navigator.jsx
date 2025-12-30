@@ -5,6 +5,7 @@ import {
   Search,
   ChevronRight,
   ChevronDown,
+  ChevronLeft,
   BookOpen,
   FileText,
   Building2,
@@ -80,10 +81,14 @@ export default function Navigator() {
     : null;
 
   return (
-    <div className="flex gap-6 h-[calc(100vh-8rem)]">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-auto lg:h-[calc(100vh-8rem)]">
       {/* Left Panel - Chapter/Section Tree */}
       <div
-        className="w-96 flex-shrink-0 rounded-2xl overflow-hidden flex flex-col"
+        className={`
+          w-full lg:w-96 flex-shrink-0 rounded-2xl overflow-hidden flex flex-col
+          ${selectedSection ? 'hidden lg:flex' : 'flex'}
+          max-h-[70vh] lg:max-h-none
+        `}
         style={{
           background: 'rgba(26, 26, 40, 0.6)',
           border: '1px solid rgba(255, 255, 255, 0.08)'
@@ -130,9 +135,9 @@ export default function Navigator() {
                   </motion.div>
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center"
-                    style={{ background: 'rgba(233, 69, 96, 0.15)' }}
+                    style={{ background: 'rgba(0, 212, 255, 0.15)' }}
                   >
-                    <Icon className="w-4 h-4 text-[#e94560]" />
+                    <Icon className="w-4 h-4 text-[#00d4ff]" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs text-gray-500">Chapter {chapter.number}</p>
@@ -161,7 +166,7 @@ export default function Navigator() {
                             className={`
                               w-full flex items-center gap-3 p-2.5 rounded-lg text-left transition-all
                               ${selectedSection === section.id
-                                ? 'bg-[#e94560]/10 text-white'
+                                ? 'bg-[#00d4ff]/10 text-white'
                                 : 'text-gray-400 hover:text-white hover:bg-white/5'
                               }
                             `}
@@ -190,7 +195,10 @@ export default function Navigator() {
 
       {/* Right Panel - Section Details */}
       <div
-        className="flex-1 rounded-2xl overflow-hidden flex flex-col"
+        className={`
+          flex-1 rounded-2xl overflow-hidden flex flex-col
+          ${!selectedSection ? 'hidden lg:flex' : 'flex'}
+        `}
         style={{
           background: 'rgba(26, 26, 40, 0.6)',
           border: '1px solid rgba(255, 255, 255, 0.08)'
@@ -201,12 +209,21 @@ export default function Navigator() {
             key={selectedSectionData.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex-1 overflow-y-auto p-6"
+            className="flex-1 overflow-y-auto p-4 lg:p-6"
           >
+            {/* Mobile Back Button */}
+            <button
+              onClick={() => setSelectedSection(null)}
+              className="lg:hidden flex items-center gap-2 mb-4 text-gray-400 hover:text-white transition-colors"
+            >
+              <ChevronLeft size={20} />
+              <span className="text-sm">Back to sections</span>
+            </button>
+
             {/* Section Header */}
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#e94560]/20 text-[#e94560]">
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#00d4ff]/20 text-[#00d4ff]">
                   Section {selectedSectionData.number}
                 </span>
                 <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-gray-400">
@@ -225,7 +242,7 @@ export default function Navigator() {
             {selectedSectionData.keyPoints && (
               <div className="mb-6">
                 <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                  <div className="w-1 h-4 rounded-full bg-[#e94560]" />
+                  <div className="w-1 h-4 rounded-full bg-[#00d4ff]" />
                   Key Points
                 </h3>
                 <div className="space-y-2">
@@ -237,8 +254,8 @@ export default function Navigator() {
                       transition={{ delay: index * 0.1 }}
                       className="flex items-start gap-3 p-3 rounded-lg bg-white/5"
                     >
-                      <div className="w-5 h-5 rounded-full bg-[#e94560]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs text-[#e94560]">{index + 1}</span>
+                      <div className="w-5 h-5 rounded-full bg-[#00d4ff]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-xs text-[#00d4ff]">{index + 1}</span>
                       </div>
                       <span className="text-sm text-gray-300">{point}</span>
                     </motion.div>
@@ -251,7 +268,7 @@ export default function Navigator() {
             {selectedSectionData.content && (
               <div className="mb-6">
                 <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                  <div className="w-1 h-4 rounded-full bg-[#4361ee]" />
+                  <div className="w-1 h-4 rounded-full bg-[#3b82f6]" />
                   Provisions
                 </h3>
                 <div
@@ -269,21 +286,21 @@ export default function Navigator() {
             {/* Stats */}
             <div className="flex flex-wrap gap-4">
               {selectedSectionData.definitionCount && (
-                <div className="px-4 py-3 rounded-xl bg-[#7209b7]/10 border border-[#7209b7]/20">
+                <div className="px-4 py-3 rounded-xl bg-[#8a5cf6]/10 border border-[#8a5cf6]/20">
                   <p className="text-xs text-gray-400">Definitions</p>
-                  <p className="text-lg font-bold text-[#7209b7]">{selectedSectionData.definitionCount}</p>
+                  <p className="text-lg font-bold text-[#8a5cf6]">{selectedSectionData.definitionCount}</p>
                 </div>
               )}
               {selectedSectionData.legitimateUses && (
-                <div className="px-4 py-3 rounded-xl bg-[#10b981]/10 border border-[#10b981]/20">
+                <div className="px-4 py-3 rounded-xl bg-[#22c55e]/10 border border-[#22c55e]/20">
                   <p className="text-xs text-gray-400">Legitimate Uses</p>
-                  <p className="text-lg font-bold text-[#10b981]">{selectedSectionData.legitimateUses}</p>
+                  <p className="text-lg font-bold text-[#22c55e]">{selectedSectionData.legitimateUses}</p>
                 </div>
               )}
               {selectedSectionData.duties && (
-                <div className="px-4 py-3 rounded-xl bg-[#f4d160]/10 border border-[#f4d160]/20">
+                <div className="px-4 py-3 rounded-xl bg-[#d4a84b]/10 border border-[#d4a84b]/20">
                   <p className="text-xs text-gray-400">Duties</p>
-                  <p className="text-lg font-bold text-[#f4d160]">{selectedSectionData.duties}</p>
+                  <p className="text-lg font-bold text-[#d4a84b]">{selectedSectionData.duties}</p>
                 </div>
               )}
             </div>

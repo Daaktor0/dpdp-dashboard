@@ -1,16 +1,127 @@
-# React + Vite
+# DPDP Act 2023 Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive educational dashboard for exploring India's Digital Personal Data Protection Act, 2023.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This dashboard provides a comprehensive, user-friendly interface for understanding the DPDP Act, including:
 
-## React Compiler
+- **Act Navigator**: Browse all 44 sections across 9 chapters with key points and provisions
+- **Stakeholder Guide**: Understand roles, rights, and obligations of Data Principals, Data Fiduciaries, and more
+- **Penalty Framework**: Visualize the penalty schedule with amounts up to Rs. 250 Crore
+- **Glossary**: 28 definitions from Section 2 with plain-English explanations
+- **Fuzzy Search**: Find any section, definition, or stakeholder with typo-tolerant search
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+> **Disclaimer**: This dashboard is for educational purposes only and does not constitute legal advice. Please consult qualified legal professionals for compliance matters.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Framework**: React 19
+- **Build Tool**: Vite 7
+- **Styling**: Tailwind CSS 4
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Routing**: React Router DOM 7
+- **Search**: Fuse.js (fuzzy search)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+
+# Navigate to project
+cd dpdp-dashboard
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## Project Structure
+
+```
+dpdp-dashboard/
+├── src/
+│   ├── components/
+│   │   └── common/
+│   │       ├── Header.jsx          # Global header with search
+│   │       ├── Sidebar.jsx         # Navigation sidebar
+│   │       └── DisclaimerModal.jsx # Legal disclaimer popup
+│   ├── pages/
+│   │   ├── Home.jsx           # Dashboard overview
+│   │   ├── Navigator.jsx      # Act sections explorer
+│   │   ├── Stakeholders.jsx   # Stakeholder details
+│   │   ├── Penalties.jsx      # Penalty visualization
+│   │   └── Glossary.jsx       # Definitions browser
+│   ├── data/
+│   │   ├── actStructure.js    # Chapters & sections
+│   │   ├── definitions.js     # Section 2 definitions
+│   │   ├── stakeholders.js    # Stakeholder data
+│   │   └── penalties.js       # Penalty schedule
+│   ├── utils/
+│   │   └── search.js          # Fuzzy search utilities
+│   ├── App.jsx                # Root component
+│   ├── main.jsx               # Entry point
+│   └── index.css              # Global styles & theme
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+## Features
+
+- **Dark Theme**: Premium dark UI with glass morphism effects
+- **Responsive Design**: Works on desktop and mobile devices
+- **Fuzzy Search**: Typo-tolerant search across all content with filters
+- **Interactive Navigation**: Animated transitions and hover effects
+- **Session Disclaimer**: Legal disclaimer shown once per session
+
+## Key Pages
+
+### Act Navigator
+Explore all 44 sections of the DPDP Act organized by chapter. Each section includes:
+- Summary and key points
+- Full provision text
+- Related statistics (definitions, duties, legitimate uses)
+
+### Stakeholders
+Detailed breakdown of all stakeholders defined in the Act:
+- Data Principal (you, the individual)
+- Data Fiduciary (organizations collecting data)
+- Data Processor (service providers)
+- Significant Data Fiduciary
+- Consent Manager
+- Data Protection Board
+
+### Penalties
+Visual representation of the penalty framework:
+- Maximum penalties for each violation type
+- Color-coded severity indicators
+- Penalty bars for quick comparison
+
+### Glossary
+All 28 definitions from Section 2 of the Act with:
+- Category classification (Entity, Individual, Technical, Legal, Institutional)
+- Plain English explanations
+- Related section references
+
+## License
+
+Educational use only. The DPDP Act content is public domain government documentation.

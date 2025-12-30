@@ -1,39 +1,45 @@
 @import "tailwindcss";
 
-/* Custom Theme Variables */
+/* Custom Theme Variables - True Black & Ice Blue */
 @theme {
-  /* Premium Dark Theme Colors */
-  --color-bg-primary: #0a0a0f;
-  --color-bg-secondary: #12121a;
-  --color-bg-card: #1a1a28;
-  --color-bg-card-hover: #22222f;
+  /* OLED True Black Theme */
+  --color-bg-primary: #000000;           /* True black for OLED */
+  --color-bg-secondary: #0a0a0f;         /* Near black */
+  --color-bg-card: #0d1117;              /* Dark card background */
+  --color-bg-card-hover: #161b22;        /* Slightly lighter on hover */
 
-  /* Accent Colors */
-  --color-accent-primary: #e94560;
-  --color-accent-secondary: #0f3460;
-  --color-accent-gold: #f4d160;
-  --color-accent-blue: #4361ee;
-  --color-accent-purple: #7209b7;
-  --color-accent-cyan: #00d4ff;
+  /* Ice Blue Accent Palette */
+  --color-accent-primary: #00d4ff;       /* Ice Blue - main accent */
+  --color-accent-primary-light: #33dfff; /* Lighter ice blue for hovers */
+  --color-accent-secondary: #06b6d4;     /* Cyan - secondary accent */
+  --color-accent-tertiary: #3b82f6;      /* Electric blue - tertiary */
+  --color-accent-gold: #f59e0b;          /* Amber for highlights */
+  --color-accent-purple: #8b5cf6;        /* Violet for variety */
+  --color-accent-success: #10b981;       /* Emerald green */
+  --color-accent-warning: #ef4444;       /* Soft red for warnings */
 
-  /* Text Colors */
-  --color-text-primary: #eaeaea;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #6b6b7b;
+  /* Text Colors - High contrast on black */
+  --color-text-primary: #ffffff;         /* Pure white */
+  --color-text-secondary: #94a3b8;       /* Cool gray */
+  --color-text-muted: #64748b;           /* Slate */
 
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
-  --gradient-gold: linear-gradient(135deg, #f4d160 0%, #e94560 100%);
-  --gradient-blue: linear-gradient(135deg, #4361ee 0%, #7209b7 100%);
-  --gradient-card: linear-gradient(145deg, rgba(26, 26, 40, 0.9) 0%, rgba(18, 18, 26, 0.9) 100%);
+  /* Ice Blue Gradients */
+  --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #3b82f6 100%);
+  --gradient-primary-subtle: linear-gradient(135deg, rgba(0, 212, 255, 0.12) 0%, rgba(59, 130, 246, 0.12) 100%);
+  --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #00d4ff 100%);
+  --gradient-blue: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
+  --gradient-card: linear-gradient(145deg, rgba(13, 17, 23, 0.95) 0%, rgba(10, 10, 15, 0.95) 100%);
 
-  /* Border */
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.15);
+  /* Border - Subtle definition on true black */
+  --color-border: #1e2530;
+  --color-border-hover: #2d3748;
+  --color-border-active: rgba(0, 212, 255, 0.5);
 
-  /* Shadows */
-  --shadow-glow: 0 0 30px rgba(233, 69, 96, 0.3);
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  /* Ice Blue Glow Effects */
+  --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.25);
+  --shadow-glow-subtle: 0 0 20px rgba(0, 212, 255, 0.15);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.8);
+  --shadow-card-hover: 0 16px 48px rgba(0, 0, 0, 0.9);
 
   /* Fonts */
   --font-family-display: 'Inter', system-ui, -apple-system, sans-serif;
@@ -55,10 +61,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Selection color */
+::selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: white;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -66,25 +78,32 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-border-hover);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Custom Utility Classes */
 @utility glass {
-  background: rgba(26, 26, 40, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(24, 24, 31, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+}
+
+@utility glass-premium {
+  background: linear-gradient(145deg, rgba(24, 24, 31, 0.9) 0%, rgba(17, 17, 24, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--color-border);
 }
 
 @utility glass-hover {
   &:hover {
-    background: rgba(34, 34, 47, 0.8);
+    background: rgba(31, 31, 40, 0.85);
     border-color: var(--color-border-hover);
   }
 }
@@ -103,12 +122,30 @@ body {
   background-clip: text;
 }
 
+@utility text-gradient-premium {
+  background: linear-gradient(135deg, #00d4ff 0%, #3b82f6 50%, #00d4ff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 @utility glow {
   box-shadow: var(--shadow-glow);
 }
 
+@utility glow-subtle {
+  box-shadow: var(--shadow-glow-subtle);
+}
+
 @utility card-shadow {
   box-shadow: var(--shadow-card);
+}
+
+@utility card-shadow-hover {
+  &:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
 }
 
 /* Animation Keyframes */
@@ -123,13 +160,18 @@ body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(233, 69, 96, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(233, 69, 96, 0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.4); }
 }
 
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 @utility animate-fade-in {
@@ -141,5 +183,21 @@ body {
 }
 
 @utility animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@utility animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid rgba(0, 212, 255, 0.6);
+  outline-offset: 2px;
+}
+
+/* Button base styles */
+button:focus-visible {
+  outline: 2px solid rgba(0, 212, 255, 0.6);
+  outline-offset: 2px;
 }

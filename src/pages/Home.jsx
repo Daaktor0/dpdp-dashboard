@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import {
   BookOpen,
   Users,
-  ClipboardCheck,
   AlertTriangle,
   ArrowRight,
   Scale,
   Shield,
   FileText,
   Landmark,
-  TrendingUp
+  BookMarked,
+  RefreshCw
 } from 'lucide-react';
 
 import { actInfo, chapters } from '../data/actStructure';
@@ -38,32 +38,40 @@ const quickLinks = [
     description: 'Explore all 44 sections across 9 chapters',
     icon: BookOpen,
     path: '/navigator',
-    color: '#e94560',
+    color: '#00d4ff',
     stats: '44 Sections'
+  },
+  {
+    title: 'Data Lifecycle',
+    description: 'Complete data flow stages per DPDP Act',
+    icon: RefreshCw,
+    path: '/lifecycle',
+    color: '#06b6d4',
+    stats: '6 Stages'
   },
   {
     title: 'Stakeholders',
     description: 'Understand roles, rights, and obligations',
     icon: Users,
     path: '/stakeholders',
-    color: '#f4d160',
+    color: '#f59e0b',
     stats: '6 Stakeholders'
-  },
-  {
-    title: 'Compliance Tracker',
-    description: 'Track your organization\'s compliance status',
-    icon: ClipboardCheck,
-    path: '/compliance',
-    color: '#4361ee',
-    stats: '8 Categories'
   },
   {
     title: 'Penalty Dashboard',
     description: 'Understand the penalty framework',
     icon: AlertTriangle,
     path: '/penalties',
-    color: '#7209b7',
+    color: '#8b5cf6',
     stats: 'Up to ₹250 Cr'
+  },
+  {
+    title: 'Glossary',
+    description: 'Key definitions and terminology explained',
+    icon: BookMarked,
+    path: '/glossary',
+    color: '#3b82f6',
+    stats: '28 Definitions'
   }
 ];
 
@@ -80,7 +88,7 @@ const keyHighlights = [
     value: '5',
     subtitle: 'Legal, No Impersonation, Authentic Info',
     icon: FileText,
-    color: '#f4d160'
+    color: '#f59e0b'
   },
   {
     title: 'Legitimate Uses',
@@ -94,7 +102,7 @@ const keyHighlights = [
     value: '₹250 Cr',
     subtitle: 'For security safeguard breaches',
     icon: AlertTriangle,
-    color: '#e94560'
+    color: '#ef4444'
   }
 ];
 
@@ -111,24 +119,21 @@ export default function Home() {
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(135deg, rgba(233, 69, 96, 0.15) 0%, rgba(15, 52, 96, 0.15) 100%)'
+            background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.12) 0%, rgba(59, 130, 246, 0.12) 100%)'
           }}
         />
         <div className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(233, 69, 96, 0.3) 0%, transparent 50%),
-                             radial-gradient(circle at 80% 50%, rgba(67, 97, 238, 0.3) 0%, transparent 50%)`
+            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.25) 0%, transparent 50%),
+                             radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.25) 0%, transparent 50%)`
           }}
         />
 
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, #e94560 0%, #0f3460 100%)' }}>
+            <div className="p-3 rounded-xl" style={{ background: 'linear-gradient(135deg, #00d4ff 0%, #3b82f6 100%)' }}>
               <Scale className="w-8 h-8 text-white" />
             </div>
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white border border-white/20">
-              No. 22 of 2023
-            </span>
           </div>
 
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -141,17 +146,17 @@ export default function Home() {
 
           <div className="flex flex-wrap items-center gap-6 text-sm">
             <div className="flex items-center gap-2">
-              <Landmark className="w-4 h-4 text-[#e94560]" />
+              <Landmark className="w-4 h-4 text-[#00d4ff]" />
               <span className="text-gray-400">Enacted:</span>
               <span className="text-white font-medium">{actInfo.dateEnacted}</span>
             </div>
             <div className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-[#4361ee]" />
+              <BookOpen className="w-4 h-4 text-[#3b82f6]" />
               <span className="text-gray-400">Chapters:</span>
               <span className="text-white font-medium">{actInfo.totalChapters}</span>
             </div>
             <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-[#f4d160]" />
+              <FileText className="w-4 h-4 text-[#f59e0b]" />
               <span className="text-gray-400">Sections:</span>
               <span className="text-white font-medium">{actInfo.totalSections}</span>
             </div>
@@ -191,7 +196,7 @@ export default function Home() {
                       <Icon className="w-6 h-6" style={{ color: link.color }} />
                     </div>
 
-                    <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-[#e94560] transition-colors">
+                    <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-[#00d4ff] transition-colors">
                       {link.title}
                     </h3>
                     <p className="text-sm text-gray-400 mb-3">{link.description}</p>
@@ -247,7 +252,7 @@ export default function Home() {
           <h2 className="text-xl font-semibold text-white">Chapters at a Glance</h2>
           <Link
             to="/navigator"
-            className="text-sm text-[#e94560] hover:text-[#f4d160] transition-colors flex items-center gap-1"
+            className="text-sm text-[#00d4ff] hover:text-[#3b82f6] transition-colors flex items-center gap-1"
           >
             View all <ArrowRight size={14} />
           </Link>
@@ -259,11 +264,11 @@ export default function Home() {
                 whileHover={{ x: 4 }}
                 className="p-4 rounded-xl flex items-start gap-4 transition-colors hover:bg-white/5"
                 style={{
-                  background: 'rgba(26, 26, 40, 0.4)',
-                  border: '1px solid rgba(255, 255, 255, 0.05)'
+                  background: 'rgba(13, 17, 23, 0.6)',
+                  border: '1px solid rgba(30, 37, 48, 0.8)'
                 }}
               >
-                <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br from-[#e94560]/20 to-[#0f3460]/20 text-[#e94560] font-bold">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br from-[#00d4ff]/20 to-[#3b82f6]/20 text-[#00d4ff] font-bold">
                   {chapter.number}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -284,7 +289,7 @@ export default function Home() {
           <h2 className="text-xl font-semibold text-white">Key Stakeholders</h2>
           <Link
             to="/stakeholders"
-            className="text-sm text-[#e94560] hover:text-[#f4d160] transition-colors flex items-center gap-1"
+            className="text-sm text-[#00d4ff] hover:text-[#3b82f6] transition-colors flex items-center gap-1"
           >
             View all <ArrowRight size={14} />
           </Link>
@@ -320,7 +325,7 @@ export default function Home() {
           <h2 className="text-xl font-semibold text-white">Penalty Framework</h2>
           <Link
             to="/penalties"
-            className="text-sm text-[#e94560] hover:text-[#f4d160] transition-colors flex items-center gap-1"
+            className="text-sm text-[#00d4ff] hover:text-[#3b82f6] transition-colors flex items-center gap-1"
           >
             View details <ArrowRight size={14} />
           </Link>
@@ -328,18 +333,18 @@ export default function Home() {
         <div
           className="p-6 rounded-2xl"
           style={{
-            background: 'rgba(26, 26, 40, 0.6)',
-            border: '1px solid rgba(255, 255, 255, 0.08)'
+            background: 'rgba(13, 17, 23, 0.6)',
+            border: '1px solid rgba(30, 37, 48, 0.8)'
           }}
         >
           <div className="flex items-center justify-between mb-6">
             <div>
               <p className="text-sm text-gray-400">Maximum Penalty</p>
-              <p className="text-3xl font-bold text-[#e94560]">{penaltyStats.maxTotalDisplay}</p>
+              <p className="text-3xl font-bold text-[#ef4444]">{penaltyStats.maxTotalDisplay}</p>
             </div>
             <div className="text-right">
               <p className="text-sm text-gray-400">Minimum (Data Principal)</p>
-              <p className="text-xl font-bold text-[#4361ee]">{penaltyStats.minDataPrincipalDisplay}</p>
+              <p className="text-xl font-bold text-[#3b82f6]">{penaltyStats.minDataPrincipalDisplay}</p>
             </div>
           </div>
 

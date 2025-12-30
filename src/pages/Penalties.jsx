@@ -42,16 +42,16 @@ export default function Penalties() {
           animate={{ opacity: 1, y: 0 }}
           className="p-6 rounded-2xl relative overflow-hidden"
           style={{
-            background: 'linear-gradient(135deg, rgba(233, 69, 96, 0.15) 0%, rgba(233, 69, 96, 0.05) 100%)',
-            border: '1px solid rgba(233, 69, 96, 0.2)'
+            background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%)',
+            border: '1px solid rgba(239, 68, 68, 0.2)'
           }}
         >
           <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-            <AlertTriangle className="w-full h-full text-[#e94560]" />
+            <AlertTriangle className="w-full h-full text-[#ef4444]" />
           </div>
           <div className="relative z-10">
             <p className="text-sm text-gray-400 mb-1">Maximum Penalty</p>
-            <p className="text-4xl font-bold text-[#e94560]">{penaltyStats.maxTotalDisplay}</p>
+            <p className="text-4xl font-bold text-[#ef4444]">{penaltyStats.maxTotalDisplay}</p>
             <p className="text-sm text-gray-500 mt-2">For security safeguard breaches (S.8(5))</p>
           </div>
         </motion.div>
@@ -63,12 +63,12 @@ export default function Penalties() {
           transition={{ delay: 0.1 }}
           className="p-6 rounded-2xl"
           style={{
-            background: 'linear-gradient(135deg, rgba(67, 97, 238, 0.15) 0%, rgba(67, 97, 238, 0.05) 100%)',
-            border: '1px solid rgba(67, 97, 238, 0.2)'
+            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%)',
+            border: '1px solid rgba(59, 130, 246, 0.2)'
           }}
         >
           <p className="text-sm text-gray-400 mb-1">Data Principal Penalty</p>
-          <p className="text-4xl font-bold text-[#4361ee]">{penaltyStats.minDataPrincipalDisplay}</p>
+          <p className="text-4xl font-bold text-[#3b82f6]">{penaltyStats.minDataPrincipalDisplay}</p>
           <p className="text-sm text-gray-500 mt-2">For breach of duties under S.15</p>
         </motion.div>
 
@@ -85,16 +85,16 @@ export default function Penalties() {
         >
           <p className="text-sm text-gray-400 mb-3">Severity Distribution</p>
           <div className="flex gap-2">
-            <div className="flex-1 text-center p-2 rounded-lg bg-[#e94560]/10">
-              <p className="text-xl font-bold text-[#e94560]">{penaltyStats.categoryCounts.critical}</p>
+            <div className="flex-1 text-center p-2 rounded-lg bg-[#ef4444]/10">
+              <p className="text-xl font-bold text-[#ef4444]">{penaltyStats.categoryCounts.critical}</p>
               <p className="text-xs text-gray-500">Critical</p>
             </div>
-            <div className="flex-1 text-center p-2 rounded-lg bg-[#f4d160]/10">
-              <p className="text-xl font-bold text-[#f4d160]">{penaltyStats.categoryCounts.high}</p>
+            <div className="flex-1 text-center p-2 rounded-lg bg-[#f59e0b]/10">
+              <p className="text-xl font-bold text-[#f59e0b]">{penaltyStats.categoryCounts.high}</p>
               <p className="text-xs text-gray-500">High</p>
             </div>
-            <div className="flex-1 text-center p-2 rounded-lg bg-[#4361ee]/10">
-              <p className="text-xl font-bold text-[#4361ee]">{penaltyStats.categoryCounts.medium + penaltyStats.categoryCounts.low}</p>
+            <div className="flex-1 text-center p-2 rounded-lg bg-[#3b82f6]/10">
+              <p className="text-xl font-bold text-[#3b82f6]">{penaltyStats.categoryCounts.medium + penaltyStats.categoryCounts.low}</p>
               <p className="text-xs text-gray-500">Medium/Low</p>
             </div>
           </div>
@@ -113,7 +113,7 @@ export default function Penalties() {
         }}
       >
         <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
-          <Scale className="w-5 h-5 text-[#e94560]" />
+          <Scale className="w-5 h-5 text-[#00d4ff]" />
           Penalty Schedule (THE SCHEDULE - Section 33(1))
         </h3>
 
@@ -168,11 +168,11 @@ export default function Penalties() {
                       <div className="absolute inset-0 flex items-center px-3">
                         <span className={`
                           text-xs px-2 py-0.5 rounded font-medium
-                          ${penalty.severity === 'critical' ? 'bg-[#e94560]/30 text-white' : ''}
-                          ${penalty.severity === 'high' ? 'bg-[#f4d160]/30 text-white' : ''}
-                          ${penalty.severity === 'medium' ? 'bg-[#00d4ff]/30 text-white' : ''}
-                          ${penalty.severity === 'low' ? 'bg-[#4361ee]/30 text-white' : ''}
-                          ${penalty.severity === 'variable' ? 'bg-[#7209b7]/30 text-white' : ''}
+                          ${penalty.severity === 'critical' ? 'bg-[#ef4444]/30 text-white' : ''}
+                          ${penalty.severity === 'high' ? 'bg-[#f59e0b]/30 text-white' : ''}
+                          ${penalty.severity === 'medium' ? 'bg-[#06b6d4]/30 text-white' : ''}
+                          ${penalty.severity === 'low' ? 'bg-[#3b82f6]/30 text-white' : ''}
+                          ${penalty.severity === 'variable' ? 'bg-[#8b5cf6]/30 text-white' : ''}
                         `}>
                           {penalty.severity}
                         </span>
@@ -249,7 +249,7 @@ export default function Penalties() {
           className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors"
         >
           <div className="flex items-center gap-3">
-            <Gavel className="w-5 h-5 text-[#f4d160]" />
+            <Gavel className="w-5 h-5 text-[#f59e0b]" />
             <div>
               <h3 className="text-lg font-semibold text-white">Penalty Determination Factors</h3>
               <p className="text-sm text-gray-500">Section 33(2) - Factors considered when imposing penalties</p>
@@ -283,11 +283,11 @@ export default function Penalties() {
                     <div className="flex items-start gap-3">
                       <div className={`
                         w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0
-                        ${factor.weight === 'high' ? 'bg-[#e94560]/20' : 'bg-[#4361ee]/20'}
+                        ${factor.weight === 'high' ? 'bg-[#ef4444]/20' : 'bg-[#3b82f6]/20'}
                       `}>
                         <span className={`
                           text-xs font-bold
-                          ${factor.weight === 'high' ? 'text-[#e94560]' : 'text-[#4361ee]'}
+                          ${factor.weight === 'high' ? 'text-[#ef4444]' : 'text-[#3b82f6]'}
                         `}>
                           {String.fromCharCode(97 + index)}
                         </span>
@@ -299,7 +299,7 @@ export default function Penalties() {
                           <span className="text-xs text-gray-600">S.{factor.section}</span>
                           <span className={`
                             text-xs px-2 py-0.5 rounded
-                            ${factor.weight === 'high' ? 'bg-[#e94560]/20 text-[#e94560]' : 'bg-[#4361ee]/20 text-[#4361ee]'}
+                            ${factor.weight === 'high' ? 'bg-[#ef4444]/20 text-[#ef4444]' : 'bg-[#3b82f6]/20 text-[#3b82f6]'}
                           `}>
                             {factor.weight} weight
                           </span>

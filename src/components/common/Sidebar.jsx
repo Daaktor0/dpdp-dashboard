@@ -1,10 +1,10 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
   BookOpen,
+  RefreshCw,
   Users,
-  ClipboardCheck,
   AlertTriangle,
   BookMarked,
   ChevronLeft,
@@ -26,16 +26,16 @@ const navItems = [
     description: 'Explore the Act'
   },
   {
+    path: '/lifecycle',
+    label: 'Data Lifecycle',
+    icon: RefreshCw,
+    description: 'Data flow stages'
+  },
+  {
     path: '/stakeholders',
     label: 'Stakeholders',
     icon: Users,
     description: 'Roles & responsibilities'
-  },
-  {
-    path: '/compliance',
-    label: 'Compliance',
-    icon: ClipboardCheck,
-    description: 'Compliance tracker'
   },
   {
     path: '/penalties',
@@ -55,7 +55,21 @@ export default function Sidebar({ collapsed, setCollapsed }) {
   const location = useLocation();
 
   return (
-    <motion.aside
+    <>
+      {/* Mobile overlay */}
+      <AnimatePresence>
+        {!collapsed && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setCollapsed(true)}
+            className="fixed inset-0 bg-black/60 z-30 lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.aside
       initial={false}
       animate={{ width: collapsed ? 80 : 280 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -73,7 +87,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           className="flex items-center gap-3 overflow-hidden"
         >
           <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-               style={{ background: 'linear-gradient(135deg, #e94560 0%, #0f3460 100%)' }}>
+               style={{ background: 'linear-gradient(135deg, #00d4ff 0%, #3b82f6 100%)' }}>
             <Scale className="w-5 h-5 text-white" />
           </div>
           <div className="whitespace-nowrap">
@@ -119,8 +133,8 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                     layoutId="activeTab"
                     className="absolute inset-0 rounded-xl"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(233, 69, 96, 0.15) 0%, rgba(15, 52, 96, 0.15) 100%)',
-                      border: '1px solid rgba(233, 69, 96, 0.3)'
+                      background: 'linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%)',
+                      border: '1px solid rgba(0, 212, 255, 0.3)'
                     }}
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                   />
@@ -128,7 +142,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
 
                 <div className={`
                   relative z-10 p-2 rounded-lg transition-colors
-                  ${isActive ? 'bg-gradient-to-br from-[#e94560] to-[#0f3460] text-white' : 'bg-white/5'}
+                  ${isActive ? 'bg-gradient-to-br from-[#00d4ff] to-[#3b82f6] text-white' : 'bg-white/5'}
                 `}>
                   <Icon size={20} />
                 </div>
@@ -161,9 +175,9 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         <div className="text-center">
           <p className="text-xs text-gray-500">Digital Personal Data</p>
           <p className="text-xs text-gray-500">Protection Act, 2023</p>
-          <p className="text-xs text-gray-600 mt-1">No. 22 of 2023</p>
         </div>
       </motion.div>
     </motion.aside>
+    </>
   );
 }

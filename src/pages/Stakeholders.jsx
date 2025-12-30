@@ -251,7 +251,7 @@ export default function Stakeholders() {
                   }}
                 >
                   <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-[#f4d160]" />
+                    <FileText className="w-4 h-4 text-[#f59e0b]" />
                     Duties ({currentStakeholder.duties.length})
                   </h3>
                   <div className="space-y-3">
@@ -262,7 +262,7 @@ export default function Stakeholders() {
                         className="p-3 rounded-xl bg-white/5 hover:bg-white/8 transition-colors"
                       >
                         <div className="flex items-center gap-2 mb-1">
-                          <AlertCircle className="w-4 h-4 text-[#f4d160]" />
+                          <AlertCircle className="w-4 h-4 text-[#f59e0b]" />
                           <span className="font-medium text-white text-sm">{duty.title}</span>
                         </div>
                         <p className="text-xs text-gray-500 ml-6">{duty.description}</p>
@@ -283,7 +283,7 @@ export default function Stakeholders() {
                   }}
                 >
                   <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
-                    <ClipboardCheck className="w-4 h-4 text-[#e94560]" />
+                    <ClipboardCheck className="w-4 h-4 text-[#00d4ff]" />
                     Obligations ({currentStakeholder.obligations.length})
                   </h3>
                   <div className="space-y-2 max-h-96 overflow-y-auto">
@@ -294,7 +294,7 @@ export default function Stakeholders() {
                         className="p-3 rounded-xl bg-white/5 hover:bg-white/8 transition-colors"
                       >
                         <div className="flex items-center gap-2 mb-1">
-                          <div className="w-2 h-2 rounded-full bg-[#e94560]" />
+                          <div className="w-2 h-2 rounded-full bg-[#00d4ff]" />
                           <span className="font-medium text-white text-sm">{obligation.title}</span>
                         </div>
                         <p className="text-xs text-gray-500 ml-4">{obligation.description}</p>
@@ -320,7 +320,7 @@ export default function Stakeholders() {
                   }}
                 >
                   <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
-                    <Building className="w-4 h-4 text-[#7209b7]" />
+                    <Building className="w-4 h-4 text-[#8b5cf6]" />
                     Additional Obligations
                   </h3>
                   <div className="space-y-3">
@@ -333,7 +333,7 @@ export default function Stakeholders() {
                           className="p-3 rounded-xl bg-white/5 hover:bg-white/8 transition-colors"
                         >
                           <div className="flex items-center gap-2 mb-1">
-                            <Icon className="w-4 h-4 text-[#7209b7]" />
+                            <Icon className="w-4 h-4 text-[#8b5cf6]" />
                             <span className="font-medium text-white text-sm">{obligation.title}</span>
                           </div>
                           <p className="text-xs text-gray-500 ml-6">{obligation.description}</p>
@@ -355,7 +355,7 @@ export default function Stakeholders() {
                   }}
                 >
                   <h3 className="font-semibold text-white mb-4 flex items-center gap-2">
-                    <Server className="w-4 h-4 text-[#4361ee]" />
+                    <Server className="w-4 h-4 text-[#3b82f6]" />
                     Key Points
                   </h3>
                   <div className="space-y-3">
@@ -366,7 +366,7 @@ export default function Stakeholders() {
                         className="p-3 rounded-xl bg-white/5 hover:bg-white/8 transition-colors"
                       >
                         <div className="flex items-center gap-2 mb-1">
-                          <div className="w-2 h-2 rounded-full bg-[#4361ee]" />
+                          <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
                           <span className="font-medium text-white text-sm">{point.title}</span>
                         </div>
                         <p className="text-xs text-gray-500 ml-4">{point.description}</p>
