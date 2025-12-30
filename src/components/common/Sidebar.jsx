@@ -175,6 +175,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         <div className="text-center">
           <p className="text-xs text-gray-500">Digital Personal Data</p>
           <p className="text-xs text-gray-500">Protection Act, 2023</p>
+          <p className="text-xs text-gray-500 mt-2">Created by Abhinav Sharma</p>
         </div>
       </motion.div>
     </motion.aside>
