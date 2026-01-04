@@ -6,7 +6,7 @@ export const penalties = [
     breach: 'Breach in observing the obligation of Data Fiduciary to take reasonable security safeguards to prevent personal data breach',
     section: '8(5)',
     sectionTitle: 'General obligations of Data Fiduciary - Security safeguards',
-    maxPenalty: 25000000000, // 250 crore
+    maxPenalty: 2500000000, // 250 crore
     maxPenaltyDisplay: '₹250 Crore',
     severity: 'critical',
     color: '#e94560',
@@ -24,7 +24,7 @@ export const penalties = [
     breach: 'Breach in observing the obligation to give the Board or affected Data Principal notice of a personal data breach',
     section: '8(6)',
     sectionTitle: 'General obligations of Data Fiduciary - Breach notification',
-    maxPenalty: 20000000000, // 200 crore
+    maxPenalty: 2000000000, // 200 crore
     maxPenaltyDisplay: '₹200 Crore',
     severity: 'high',
     color: '#f4d160',
@@ -42,7 +42,7 @@ export const penalties = [
     breach: 'Breach in observance of additional obligations in relation to children',
     section: '9',
     sectionTitle: 'Processing of personal data of children',
-    maxPenalty: 20000000000, // 200 crore
+    maxPenalty: 2000000000, // 200 crore
     maxPenaltyDisplay: '₹200 Crore',
     severity: 'high',
     color: '#f4d160',
@@ -60,7 +60,7 @@ export const penalties = [
     breach: 'Breach in observance of additional obligations of Significant Data Fiduciary',
     section: '10',
     sectionTitle: 'Additional obligations of Significant Data Fiduciary',
-    maxPenalty: 15000000000, // 150 crore
+    maxPenalty: 1500000000, // 150 crore
     maxPenaltyDisplay: '₹150 Crore',
     severity: 'high',
     color: '#f4d160',
@@ -114,7 +114,7 @@ export const penalties = [
     breach: 'Breach of any other provision of this Act or the rules made thereunder',
     section: 'Other',
     sectionTitle: 'Other provisions',
-    maxPenalty: 5000000000, // 50 crore
+    maxPenalty: 500000000, // 50 crore
     maxPenaltyDisplay: '₹50 Crore',
     severity: 'medium',
     color: '#00d4ff',
@@ -182,7 +182,7 @@ export const penaltyFactors = [
 ];
 
 export const penaltyStats = {
-  maxTotal: 25000000000,
+  maxTotal: 2500000000,
   maxTotalDisplay: '₹250 Crore',
   minDataPrincipal: 10000,
   minDataPrincipalDisplay: '₹10,000',

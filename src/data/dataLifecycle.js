@@ -14,7 +14,7 @@ export const lifecycleStages = [
       { text: 'Obtain valid consent (or rely on legitimate use)', section: '6' },
       { text: 'Collect only necessary data (purpose limitation)', section: '4' }
     ],
-    penalties: 'Up to Rs. 50 Crore for non-compliance with consent requirements',
+    penalties: 'Up to ₹50 Crore for non-compliance with consent requirements',
     dataPrincipalRights: [
       'Right to be informed about data collection',
       'Right to give or refuse consent'
@@ -33,7 +33,7 @@ export const lifecycleStages = [
       { text: 'Protect data from breaches', section: '8(6)' },
       { text: 'Ensure data accuracy and completeness', section: '8(3)' }
     ],
-    penalties: 'Up to Rs. 250 Crore for security safeguard breaches',
+    penalties: 'Up to ₹250 Crore for security safeguard breaches',
     dataPrincipalRights: [
       'Right to data security',
       'Right to be notified of breaches'
@@ -50,9 +50,9 @@ export const lifecycleStages = [
     keyObligations: [
       { text: 'Process only for lawful purpose', section: '4' },
       { text: 'Limit processing to stated purpose', section: '7' },
-      { text: 'Ensure data minimization', section: '4(2)' }
+      { text: 'Ensure data minimization', section: '6(3)' }
     ],
-    penalties: 'Up to Rs. 200 Crore for processing violations',
+    penalties: 'Up to ₹200 Crore for processing violations',
     dataPrincipalRights: [
       'Right to know processing purpose',
       'Right to access personal data'
@@ -71,7 +71,7 @@ export const lifecycleStages = [
       { text: 'Cross-border transfer restrictions', section: '16' },
       { text: 'Government data access requirements', section: '17' }
     ],
-    penalties: 'Up to Rs. 200 Crore for unauthorized cross-border transfers',
+    penalties: 'Up to ₹50 Crore for violations under the general provisions category',
     dataPrincipalRights: [
       'Right to know who data is shared with',
       'Right to restrict certain transfers'
@@ -90,7 +90,7 @@ export const lifecycleStages = [
       { text: 'Implement retention policies', section: '8(7)' },
       { text: 'Document retention periods', section: '8(7)' }
     ],
-    penalties: 'Part of general obligation violations - Up to Rs. 50 Crore',
+    penalties: 'Part of general obligation violations - Up to ₹50 Crore',
     dataPrincipalRights: [
       'Right to know retention period',
       'Right to request deletion after purpose is fulfilled'
@@ -109,7 +109,7 @@ export const lifecycleStages = [
       { text: 'Honor erasure requests', section: '12(3)' },
       { text: 'Ensure complete deletion from all systems', section: '8(7)' }
     ],
-    penalties: 'Up to Rs. 50 Crore for failure to erase data',
+    penalties: 'Up to ₹50 Crore for failure to erase data',
     dataPrincipalRights: [
       'Right to erasure of personal data',
       'Right to withdraw consent and have data deleted'

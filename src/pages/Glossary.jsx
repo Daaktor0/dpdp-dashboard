@@ -351,10 +351,9 @@ function getSimpleExplanation(id) {
     'data-processor': 'Think of this as a contractor. If a company uses another service to handle your data (like a cloud storage provider), that service is the Data Processor.',
     'personal-data': 'Any information that can identify you - your name, email, phone number, location, even your IP address. If someone can figure out who you are from the data, it\'s personal data.',
     'processing': 'Anything done with your data - collecting it, storing it, using it, sharing it, or deleting it. Even just looking at your data counts as processing.',
-    'consent': 'Your clear agreement to let an organization use your data. It must be freely given, specific to the purpose, and you must know exactly what you\'re agreeing to.',
+    'consent-manager': 'A registered service that helps you manage your consent across different organizations from one place - like a consent dashboard.',
     'personal-data-breach': 'When your data gets exposed without permission - like a hack, accidental leak, or unauthorized access. It compromises the safety of your information.',
     'significant-data-fiduciary': 'Large organizations that handle lots of sensitive data and pose greater risks. They have extra responsibilities and are specifically identified by the government.',
-    'consent-manager': 'A registered service that helps you manage your consent across different organizations from one place - like a consent dashboard.',
     'child': 'Anyone under 18 years old. Children get extra protections under the Act because they may not fully understand data privacy.',
     'board': 'The Data Protection Board of India - the official authority that enforces this Act, handles complaints, and imposes penalties.',
     'appellate-tribunal': 'If you disagree with a decision from the Data Protection Board, you can appeal to this higher authority (the Telecom Disputes Tribunal).'

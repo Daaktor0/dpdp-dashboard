@@ -197,7 +197,7 @@ Notice must be available in English or any Eighth Schedule language.`,
     number: '7',
     title: 'Certain legitimate uses',
     chapter: 2,
-    summary: 'Nine scenarios where processing is permitted without explicit consent.',
+    summary: 'Nine scenarios where processing is permitted without consent (legitimate uses).',
     content: `A Data Fiduciary may process personal data without consent for:
 (a) Voluntarily provided data where principal hasn't objected
 (b) State provision of subsidies, benefits, services, certificates, licences, permits
@@ -539,7 +539,7 @@ Removal only after opportunity of being heard.`,
     title: 'Members and officers to be public servants',
     chapter: 5,
     summary: 'Board members and officers are public servants under IPC Section 21.',
-    content: 'Chairperson, Members, officers and employees are public servants under section 21 of IPC.',
+    content: 'Chairperson, Members, officers and employees are public servants under section 21 of IPC (corresponding to Section 2(24) of Bharatiya Nyaya Sanhita, 2023).',
     keyPoints: [
       'Public servant status',
       'IPC Section 21 applies'
