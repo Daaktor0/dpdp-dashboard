@@ -10,12 +10,14 @@ import {
   FileText,
   Landmark,
   BookMarked,
-  RefreshCw
+  RefreshCw,
+  Calendar
 } from 'lucide-react';
 
 import { actInfo, chapters } from '../data/actStructure';
 import { penalties, penaltyStats } from '../data/penalties';
 import { stakeholders } from '../data/stakeholders';
+import EnforcementTimeline from '../components/timeline/EnforcementTimeline';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -40,6 +42,15 @@ const quickLinks = [
     path: '/navigator',
     color: '#00d4ff',
     stats: '44 Sections'
+  },
+  {
+    title: 'DPDP Rules 2025',
+    description: 'New rules with enforcement timeline',
+    icon: Calendar,
+    path: '/rules',
+    color: '#10b981',
+    stats: '23 Rules',
+    isNew: true
   },
   {
     title: 'Data Lifecycle',
@@ -164,6 +175,18 @@ export default function Home() {
         </div>
       </motion.section>
 
+      {/* Enforcement Timeline Section */}
+      <motion.section
+        variants={itemVariants}
+        className="p-6 rounded-2xl"
+        style={{
+          background: 'rgba(13, 17, 23, 0.6)',
+          border: '1px solid rgba(30, 37, 48, 0.8)'
+        }}
+      >
+        <EnforcementTimeline />
+      </motion.section>
+
       {/* Quick Links Grid */}
       <motion.section variants={itemVariants}>
         <h2 className="text-xl font-semibold text-white mb-4">Quick Access</h2>
@@ -196,9 +219,16 @@ export default function Home() {
                       <Icon className="w-6 h-6" style={{ color: link.color }} />
                     </div>
 
-                    <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-[#00d4ff] transition-colors">
-                      {link.title}
-                    </h3>
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-lg font-semibold text-white group-hover:text-[#00d4ff] transition-colors">
+                        {link.title}
+                      </h3>
+                      {link.isNew && (
+                        <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-green-500/20 text-green-400 uppercase">
+                          New
+                        </span>
+                      )}
+                    </div>
                     <p className="text-sm text-gray-400 mb-3">{link.description}</p>
 
                     <div className="flex items-center justify-between">

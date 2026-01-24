@@ -11,6 +11,7 @@ export const stakeholders = [
     color: '#f4d160',
     gradient: 'from-yellow-500 to-orange-500',
     description: 'You are a Data Principal if any organization processes your personal data. This includes customers, employees, citizens, and any individual whose data is collected.',
+    implementingRules: [14],
     includes: [
       'Any individual whose data is processed',
       'Parents/guardians of children (under 18)',
@@ -103,6 +104,7 @@ export const stakeholders = [
       'Educational institutions',
       'Healthcare providers'
     ],
+    implementingRules: [3, 6, 7, 8, 9],
     obligations: [
       {
         id: 'lawful-processing',
@@ -186,6 +188,7 @@ export const stakeholders = [
     color: '#7209b7',
     gradient: 'from-purple-600 to-violet-600',
     description: 'Large or high-risk Data Fiduciaries designated by the government. They have additional compliance obligations due to the scale or sensitivity of data they process.',
+    implementingRules: [13],
     criteria: [
       'Volume and sensitivity of data processed',
       'Risk to Data Principal rights',
@@ -273,6 +276,7 @@ export const stakeholders = [
     color: '#00d4ff',
     gradient: 'from-cyan-500 to-teal-500',
     description: 'Registered intermediaries that provide platforms for Data Principals to give, manage, review, and withdraw consent across multiple Data Fiduciaries.',
+    implementingRules: [4],
     characteristics: [
       'Registered with the Board',
       'Single point of contact for consent',
@@ -310,6 +314,7 @@ export const stakeholders = [
     color: '#10b981',
     gradient: 'from-emerald-500 to-green-500',
     description: 'The independent regulatory body responsible for enforcing the Act, handling complaints, conducting inquiries, and imposing penalties.',
+    implementingRules: [17, 18, 19, 20, 21],
     characteristics: [
       'Body corporate with perpetual succession',
       'Digital office by design',

@@ -223,6 +223,34 @@ export const definitions = [
     section: '2(zb)',
     relatedSections: ['7(b)', '7(c)', '17(2)(a)'],
     category: 'Institutional'
+  },
+  // DPDP Rules 2025 Definitions (Rule 2)
+  {
+    id: 'techno-legal-measures',
+    term: 'Techno-legal Measures',
+    definition: 'Measures as referred to under rules 20 and 22 of DPDP Rules 2025, combining technological safeguards with legal procedures for Board proceedings and appeals.',
+    section: 'Rule 2(b)',
+    relatedSections: [],
+    category: 'Technical',
+    isRule: true
+  },
+  {
+    id: 'user-account',
+    term: 'User Account',
+    definition: 'The online account registered by the Data Principal with the Data Fiduciary.',
+    section: 'Rule 2(c)',
+    relatedSections: [],
+    category: 'Technical',
+    isRule: true
+  },
+  {
+    id: 'verifiable-consent',
+    term: 'Verifiable Consent',
+    definition: 'A consent as specified in rule 10 or 11 of DPDP Rules 2025, including methods to verify parental consent for children and consent for persons with disability.',
+    section: 'Rule 2(d)',
+    relatedSections: ['9'],
+    category: 'Legal',
+    isRule: true
   }
 ];
 

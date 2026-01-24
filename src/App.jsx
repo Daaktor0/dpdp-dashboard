@@ -8,6 +8,7 @@ import DisclaimerModal from './components/common/DisclaimerModal';
 
 import Home from './pages/Home';
 import Navigator from './pages/Navigator';
+import Rules from './pages/Rules';
 import DataLifecycle from './pages/DataLifecycle';
 import Stakeholders from './pages/Stakeholders';
 import Penalties from './pages/Penalties';
@@ -53,6 +54,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/navigator" element={<Navigator />} />
+            <Route path="/rules" element={<Rules />} />
             <Route path="/lifecycle" element={<DataLifecycle />} />
             <Route path="/stakeholders" element={<Stakeholders />} />
             <Route path="/penalties" element={<Penalties />} />

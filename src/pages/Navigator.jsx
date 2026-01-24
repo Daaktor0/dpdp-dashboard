@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import {
   Search,
   ChevronRight,
@@ -15,10 +15,13 @@ import {
   Gavel,
   Scale,
   AlertTriangle,
-  ExternalLink
+  ExternalLink,
+  ScrollText
 } from 'lucide-react';
 
 import { chapters, sections, actInfo } from '../data/actStructure';
+import { getRuleByNumber } from '../data/rulesStructure';
+import RuleModal from '../components/rules/RuleModal';
 
 const iconMap = {
   BookOpen,
@@ -44,6 +47,7 @@ export default function Navigator() {
   const [selectedSection, setSelectedSection] = useState(
     initialSection ? parseInt(initialSection) : null
   );
+  const [selectedRule, setSelectedRule] = useState(null);
 
   // Filter sections based on search
   const filteredData = useMemo(() => {
@@ -173,6 +177,11 @@ export default function Navigator() {
                           >
                             <span className="text-xs font-mono w-8">S.{section.number}</span>
                             <span className="flex-1 text-sm truncate">{section.title}</span>
+                            {section.implementingRules && section.implementingRules.length > 0 && (
+                              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[#10b981]/20 flex items-center justify-center" title="Has implementing rules">
+                                <ScrollText className="w-3 h-3 text-[#10b981]" />
+                              </span>
+                            )}
                           </button>
                         ))}
                       </div>
@@ -283,6 +292,42 @@ export default function Navigator() {
               </div>
             )}
 
+            {/* Implementing Rules */}
+            {selectedSectionData.implementingRules && selectedSectionData.implementingRules.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                  <div className="w-1 h-4 rounded-full bg-[#10b981]" />
+                  Implementing Rules (DPDP Rules 2025)
+                </h3>
+                <div className="space-y-2">
+                  {selectedSectionData.implementingRules.map((ruleNum) => {
+                    const rule = getRuleByNumber(ruleNum);
+                    if (!rule) return null;
+                    return (
+                      <button
+                        key={ruleNum}
+                        onClick={() => setSelectedRule(rule)}
+                        className="w-full flex items-center gap-3 p-3 rounded-lg bg-[#10b981]/10 border border-[#10b981]/20 hover:bg-[#10b981]/20 transition-colors group text-left"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-[#10b981]/20 flex items-center justify-center flex-shrink-0">
+                          <ScrollText className="w-4 h-4 text-[#10b981]" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-white truncate">
+                            Rule {rule.number}: {rule.title}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {rule.phase === 1 ? 'Active' : rule.phase === 2 ? 'Nov 2026' : 'May 2027'}
+                          </p>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-[#10b981] transition-colors flex-shrink-0" />
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             {/* Stats */}
             <div className="flex flex-wrap gap-4">
               {selectedSectionData.definitionCount && (
@@ -317,6 +362,11 @@ export default function Navigator() {
           </div>
         )}
       </div>
+
+      {/* Rule Modal */}
+      {selectedRule && (
+        <RuleModal rule={selectedRule} onClose={() => setSelectedRule(null)} />
+      )}
     </div>
   );
 }

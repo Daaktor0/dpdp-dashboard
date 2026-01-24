@@ -20,10 +20,14 @@ import {
   Edit,
   MessageSquare,
   UserPlus,
-  XCircle
+  XCircle,
+  ScrollText,
+  ExternalLink
 } from 'lucide-react';
 
 import { stakeholders, stakeholderRelationships } from '../data/stakeholders';
+import { getRuleByNumber } from '../data/rulesStructure';
+import RuleModal from '../components/rules/RuleModal';
 
 const iconMap = {
   User,
@@ -50,6 +54,7 @@ export default function Stakeholders() {
   const [selectedStakeholder, setSelectedStakeholder] = useState(
     initialId || 'data-principal'
   );
+  const [selectedRule, setSelectedRule] = useState(null);
 
   const currentStakeholder = stakeholders.find(s => s.id === selectedStakeholder);
 
@@ -141,6 +146,34 @@ export default function Stakeholders() {
 
               {/* Description */}
               <p className="text-gray-300 mb-6">{currentStakeholder.description}</p>
+
+              {/* Implementing Rules (DPDP Rules 2025) */}
+              {currentStakeholder.implementingRules && currentStakeholder.implementingRules.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                    <div className="w-1 h-4 rounded-full bg-[#10b981]" />
+                    Implementing Rules (DPDP Rules 2025)
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {currentStakeholder.implementingRules.map((ruleNum) => {
+                      const rule = getRuleByNumber(ruleNum);
+                      if (!rule) return null;
+                      return (
+                        <button
+                          key={ruleNum}
+                          onClick={() => setSelectedRule(rule)}
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[#10b981]/10 border border-[#10b981]/20 hover:bg-[#10b981]/20 transition-colors group text-left"
+                        >
+                          <ScrollText className="w-4 h-4 text-[#10b981]" />
+                          <span className="text-sm text-white">Rule {rule.number}</span>
+                          <span className="text-xs text-gray-500 hidden md:inline">{rule.title}</span>
+                          <ExternalLink className="w-3 h-3 text-gray-500 group-hover:text-[#10b981]" />
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               {/* Includes */}
               {currentStakeholder.includes && (
@@ -444,6 +477,11 @@ export default function Stakeholders() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Rule Modal */}
+      {selectedRule && (
+        <RuleModal rule={selectedRule} onClose={() => setSelectedRule(null)} />
+      )}
     </div>
   );
 }

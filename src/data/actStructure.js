@@ -170,7 +170,8 @@ Notice must be available in English or any Eighth Schedule language.`,
       'Must explain how to exercise rights',
       'Must explain how to complain to Board',
       'Available in English or 22 scheduled languages'
-    ]
+    ],
+    implementingRules: [3]
   },
   {
     id: 6,
@@ -190,7 +191,8 @@ Notice must be available in English or any Eighth Schedule language.`,
       'Right to withdraw with comparable ease',
       'Consent Manager can facilitate consent management',
       'Burden of proof on Data Fiduciary'
-    ]
+    ],
+    implementingRules: [4]
   },
   {
     id: 7,
@@ -216,7 +218,8 @@ Notice must be available in English or any Eighth Schedule language.`,
       'Disasters and public order',
       'Employment purposes'
     ],
-    legitimateUses: 9
+    legitimateUses: 9,
+    implementingRules: [5]
   },
   {
     id: 8,
@@ -243,7 +246,8 @@ Notice must be available in English or any Eighth Schedule language.`,
       'Breach notification to Board and individuals',
       'Data erasure when purpose served',
       'Grievance redressal mechanism required'
-    ]
+    ],
+    implementingRules: [6, 7, 8, 9]
   },
   {
     id: 9,
@@ -263,7 +267,8 @@ Notice must be available in English or any Eighth Schedule language.`,
       'No tracking or behavioural monitoring',
       'No targeted advertising to children',
       'Exemptions possible for safe processors'
-    ]
+    ],
+    implementingRules: [10, 11, 12]
   },
   {
     id: 10,
@@ -290,7 +295,8 @@ Notice must be available in English or any Eighth Schedule language.`,
       'Must appoint independent auditor',
       'Periodic DPIA required',
       'Periodic audits required'
-    ]
+    ],
+    implementingRules: [13]
   },
   // Chapter III - Rights and Duties of Data Principal
   {
@@ -309,7 +315,8 @@ Exception: Does not apply to sharing for prevention/detection/investigation of o
       'Right to know processing activities',
       'Right to know who data was shared with',
       'Exception for law enforcement sharing'
-    ]
+    ],
+    implementingRules: [14]
   },
   {
     id: 12,
@@ -325,7 +332,8 @@ Exception: Does not apply to sharing for prevention/detection/investigation of o
       'Right to completion of incomplete data',
       'Right to updating of data',
       'Right to erasure (with limitations)'
-    ]
+    ],
+    implementingRules: [14]
   },
   {
     id: 13,
@@ -340,7 +348,8 @@ Exception: Does not apply to sharing for prevention/detection/investigation of o
       'Grievance mechanism must be available',
       'Response within prescribed timeline',
       'Must exhaust before approaching Board'
-    ]
+    ],
+    implementingRules: [14]
   },
   {
     id: 14,
@@ -354,7 +363,8 @@ Exception: Does not apply to sharing for prevention/detection/investigation of o
       'Nomination for death or incapacity',
       'Nominee exercises Data Principal rights',
       'Incapacity = mental or physical inability'
-    ]
+    ],
+    implementingRules: [14]
   },
   {
     id: 15,
@@ -390,7 +400,8 @@ Exception: Does not apply to sharing for prevention/detection/investigation of o
       'Government can restrict cross-border transfers',
       'Restricted countries notified',
       'Higher protection laws take precedence'
-    ]
+    ],
+    implementingRules: [15]
   },
   {
     id: 17,
@@ -421,7 +432,8 @@ Exception: Does not apply to sharing for prevention/detection/investigation of o
       'Research and statistics exemption',
       'Startup exemptions possible',
       '5-year transitional exemption power'
-    ]
+    ],
+    implementingRules: [16]
   },
   // Chapter V - Data Protection Board
   {
@@ -438,7 +450,8 @@ Exception: Does not apply to sharing for prevention/detection/investigation of o
       'Body corporate status',
       'Perpetual succession',
       'Headquarters as notified'
-    ]
+    ],
+    implementingRules: [17, 18, 19, 20, 21]
   },
   {
     id: 19,
@@ -454,7 +467,8 @@ At least one member shall be expert in law.`,
       'Chairperson + Members',
       'Expertise in data governance, law, technology required',
       'At least one legal expert mandatory'
-    ]
+    ],
+    implementingRules: [17]
   },
   {
     id: 20,
@@ -468,7 +482,8 @@ At least one member shall be expert in law.`,
       '2-year term',
       'Eligible for re-appointment',
       'Terms cannot be varied adversely'
-    ]
+    ],
+    implementingRules: [18]
   },
   {
     id: 21,
@@ -519,7 +534,8 @@ Removal only after opportunity of being heard.`,
       'Digital meetings permitted',
       'Proceedings not invalid for procedural defects',
       'Senior member acts for absent Chairperson'
-    ]
+    ],
+    implementingRules: [19]
   },
   {
     id: 24,
@@ -531,7 +547,8 @@ Removal only after opportunity of being heard.`,
     keyPoints: [
       'Central Government approval needed',
       'Terms as prescribed'
-    ]
+    ],
+    implementingRules: [21]
   },
   {
     id: 25,
@@ -607,7 +624,8 @@ Removal only after opportunity of being heard.`,
       'Civil court-like powers',
       'Can issue interim orders',
       'Can penalize frivolous complaints'
-    ]
+    ],
+    implementingRules: [20]
   },
   // Chapter VII - Appeal and ADR
   {
@@ -628,7 +646,8 @@ Removal only after opportunity of being heard.`,
       'Late appeals with cause',
       '6-month disposal target',
       'Digital proceedings'
-    ]
+    ],
+    implementingRules: [22]
   },
   {
     id: 30,
@@ -736,7 +755,8 @@ Removal only after opportunity of being heard.`,
     keyPoints: [
       'Government information power',
       'Applies to Board and entities'
-    ]
+    ],
+    implementingRules: [23]
   },
   {
     id: 37,

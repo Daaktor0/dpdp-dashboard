@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
   BookOpen,
+  FileText,
   RefreshCw,
   Users,
   AlertTriangle,
@@ -24,6 +25,13 @@ const navItems = [
     label: 'Act Navigator',
     icon: BookOpen,
     description: 'Explore the Act'
+  },
+  {
+    path: '/rules',
+    label: 'Rules 2025',
+    icon: FileText,
+    description: 'DPDP Rules',
+    isNew: true
   },
   {
     path: '/lifecycle',
@@ -155,7 +163,14 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                   }}
                   className="relative z-10 overflow-hidden whitespace-nowrap"
                 >
-                  <span className="font-medium">{item.label}</span>
+                  <span className="font-medium flex items-center gap-2">
+                    {item.label}
+                    {item.isNew && (
+                      <span className="px-1.5 py-0.5 text-[9px] font-bold rounded bg-green-500/20 text-green-400 uppercase">
+                        New
+                      </span>
+                    )}
+                  </span>
                   {!collapsed && (
                     <p className="text-xs text-gray-500 mt-0.5">{item.description}</p>
                   )}

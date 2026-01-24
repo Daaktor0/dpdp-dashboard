@@ -217,7 +217,7 @@ export default function Glossary() {
 
               {/* Header */}
               <div className="mb-8">
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-4 flex-wrap">
                   <span
                     className="px-3 py-1 rounded-full text-xs font-medium"
                     style={{
@@ -228,8 +228,13 @@ export default function Glossary() {
                     {currentDefinition.category}
                   </span>
                   <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-gray-400">
-                    Section {currentDefinition.section}
+                    {currentDefinition.section}
                   </span>
+                  {currentDefinition.isRule && (
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400">
+                      Rules 2025
+                    </span>
+                  )}
                 </div>
                 <h1 className="text-3xl font-bold text-white mb-2">{currentDefinition.term}</h1>
               </div>
@@ -356,7 +361,11 @@ function getSimpleExplanation(id) {
     'significant-data-fiduciary': 'Large organizations that handle lots of sensitive data and pose greater risks. They have extra responsibilities and are specifically identified by the government.',
     'child': 'Anyone under 18 years old. Children get extra protections under the Act because they may not fully understand data privacy.',
     'board': 'The Data Protection Board of India - the official authority that enforces this Act, handles complaints, and imposes penalties.',
-    'appellate-tribunal': 'If you disagree with a decision from the Data Protection Board, you can appeal to this higher authority (the Telecom Disputes Tribunal).'
+    'appellate-tribunal': 'If you disagree with a decision from the Data Protection Board, you can appeal to this higher authority (the Telecom Disputes Tribunal).',
+    // Rules 2025 definitions
+    'techno-legal-measures': 'A combination of technology and legal procedures that the Data Protection Board uses to conduct its proceedings digitally - things like digital signatures, video conferencing, and secure document systems.',
+    'user-account': 'Your online account with any service or app - like your email login, social media profile, or e-commerce account. The Rules use this to define how organizations should handle your data.',
+    'verifiable-consent': 'A proven method to confirm that a parent actually gave consent for their child\'s data, or that a guardian consented for someone with disability. It\'s not just clicking a button - it requires real verification.'
   };
 
   return explanations[id] || 'This term defines an important concept in data protection law that helps establish clear rules and responsibilities for handling personal data.';
