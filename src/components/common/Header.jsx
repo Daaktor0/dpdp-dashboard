@@ -105,9 +105,12 @@ export default function Header({ sidebarCollapsed }) {
         >
           <Search size={18} />
           <span className="hidden sm:inline text-sm">Search the Act...</span>
-          <div className="hidden md:flex items-center gap-1 text-xs text-gray-500 ml-2 md:ml-4">
-            <Command size={12} />
-            <span>K</span>
+          <div className="hidden md:flex items-center gap-2 text-[11px] text-gray-500 ml-2 md:ml-4">
+            <span className="hidden lg:inline">Press K to search</span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-gray-400">
+              <Command size={12} />
+              <span>K</span>
+            </span>
           </div>
         </button>
 

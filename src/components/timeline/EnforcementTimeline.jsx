@@ -98,6 +98,57 @@ export default function EnforcementTimeline() {
         )}
       </div>
 
+      {/* Visual Timeline Strip */}
+      <div className="space-y-3">
+        <div className="flex overflow-hidden rounded-full border border-white/10 bg-white/5">
+          {phases.map((phase) => {
+            const phaseStatus = getPhaseStatus(phase.id);
+            const opacity = phaseStatus === 'active' ? 1 : phaseStatus === 'upcoming' ? 0.8 : 0.5;
+            return (
+              <div
+                key={phase.id}
+                className="flex-1 h-10 flex items-center justify-center text-xs font-semibold"
+                style={{ background: `${phase.color}40`, color: phase.color, opacity }}
+              >
+                Phase {phase.id}
+              </div>
+            );
+          })}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {phases.map((phase) => {
+            const phaseStatus = getPhaseStatus(phase.id);
+            const daysUntil = getDaysUntil(phase.date);
+            return (
+              <div
+                key={phase.id}
+                className="p-3 rounded-xl text-sm"
+                style={{
+                  background: 'rgba(13, 17, 23, 0.5)',
+                  border: '1px solid rgba(30, 37, 48, 0.8)'
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-white">{phase.name}</span>
+                  <span className="text-xs font-medium" style={{ color: phase.color }}>
+                    {getStatusLabel(phase.id)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between mt-2 text-xs text-gray-400">
+                  <span>{phase.displayDate}</span>
+                  {phaseStatus !== 'active' && daysUntil > 0 && (
+                    <span>{daysUntil} days</span>
+                  )}
+                  {phaseStatus === 'active' && (
+                    <span>In effect</span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Progress Bar */}
       <div className="relative">
         <div className="h-2 bg-white/5 rounded-full overflow-hidden">
