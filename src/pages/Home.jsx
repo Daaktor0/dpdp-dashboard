@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -11,13 +12,15 @@ import {
   Landmark,
   BookMarked,
   RefreshCw,
-  Calendar
+  Calendar,
+  Clock
 } from 'lucide-react';
 
 import { actInfo, chapters } from '../data/actStructure';
 import { penalties, penaltyStats } from '../data/penalties';
 import { stakeholders } from '../data/stakeholders';
 import EnforcementTimeline from '../components/timeline/EnforcementTimeline';
+import { phases, getCurrentStatus, getDaysUntil, getPhaseStatus } from '../data/enforcementTimeline';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -117,13 +120,90 @@ const keyHighlights = [
   }
 ];
 
+const sectionLinks = [
+  { id: 'summary', label: 'Summary' },
+  { id: 'risk-hotspots', label: 'Risk Hotspots' },
+  { id: 'timeline', label: 'Timeline' },
+  { id: 'quick-access', label: 'Quick Access' },
+  { id: 'highlights', label: 'Highlights' },
+  { id: 'chapters', label: 'Chapters' },
+  { id: 'stakeholders', label: 'Stakeholders' },
+  { id: 'penalties', label: 'Penalties' },
+  { id: 'faqs', label: 'FAQs' }
+];
+
+const executiveSummary = [
+  'DPDP Act creates a rights-first framework for processing digital personal data.',
+  'Phase 1 is active; Phase 2 introduces consent manager operations in 2026.',
+  'Full compliance obligations begin in 2027 across notice, safeguards, and rights.',
+  'Penalty exposure peaks at ₹250 Cr for security safeguard failures.',
+  'Use the quick links to navigate sections, rules, and lifecycle guidance.'
+];
+
+const riskHotspots = [
+  {
+    title: 'Children’s data & verifiable consent',
+    description: 'High scrutiny on consent verification and default safeguards.',
+    icon: Shield,
+    color: '#f59e0b'
+  },
+  {
+    title: 'Consent management readiness',
+    description: 'Prepare for Consent Manager requirements and operational workflows.',
+    icon: Users,
+    color: '#10b981'
+  },
+  {
+    title: 'Data minimization & retention',
+    description: 'Keep collection proportional and enforce retention limits.',
+    icon: Scale,
+    color: '#00d4ff'
+  }
+];
+
+const faqs = [
+  {
+    question: 'Who is a Data Principal under the DPDP Act?',
+    answer: 'A Data Principal is the individual to whom the personal data relates.'
+  },
+  {
+    question: 'What is a Consent Manager?',
+    answer: 'An entity registered with the Board to manage consent on behalf of Data Principals.'
+  },
+  {
+    question: 'What is the maximum penalty?',
+    answer: '₹250 Cr for significant security safeguard failures.'
+  },
+  {
+    question: 'When does full compliance begin?',
+    answer: 'Phase 3 begins on May 13, 2027.'
+  },
+  {
+    question: 'What is the grievance response timeline?',
+    answer: 'Grievances should be addressed within 90 days.'
+  },
+  {
+    question: 'Where can I see all sections?',
+    answer: 'Use the Act Navigator to browse all 44 sections across 9 chapters.'
+  }
+];
+
 export default function Home() {
+  const [timelineStatus, setTimelineStatus] = useState(getCurrentStatus());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimelineStatus(getCurrentStatus());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="space-y-8"
+      className="space-y-10 md:space-y-12"
     >
       {/* Hero Section */}
       <motion.section variants={itemVariants} className="relative overflow-hidden rounded-3xl p-8 md:p-12">
@@ -151,7 +231,7 @@ export default function Home() {
             {actInfo.title}
           </h1>
 
-          <p className="text-lg text-gray-300 max-w-3xl mb-6">
+          <p className="text-lg text-gray-300 max-w-3xl mb-8 leading-relaxed">
             {actInfo.purpose}
           </p>
 
@@ -171,12 +251,129 @@ export default function Home() {
               <span className="text-gray-400">Sections:</span>
               <span className="text-white font-medium">{actInfo.totalSections}</span>
             </div>
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#10b981]" />
+              <span className="text-gray-400">Last updated on:</span>
+              <span className="text-white font-medium">January 24, 2026</span>
+            </div>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+            {phases.map((phase) => {
+              const status = getPhaseStatus(phase.id);
+              const daysUntil = getDaysUntil(phase.date);
+              const statusText = status === 'active'
+                ? `Phase ${phase.id} Active`
+                : `Phase ${phase.id} in ${daysUntil} days`;
+              return (
+                <div
+                  key={phase.id}
+                  className="p-4 rounded-2xl border border-white/10 bg-white/5"
+                >
+                  <p className="text-xs uppercase tracking-wide text-gray-400">Phase {phase.id}</p>
+                  <p className="text-lg font-semibold text-white">{phase.shortName}</p>
+                  <div className="mt-4 flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-gray-400">{status === 'active' ? 'Status' : 'Days remaining'}</p>
+                      <p className="text-3xl font-bold text-white">
+                        {status === 'active' ? 'Active' : daysUntil}
+                      </p>
+                    </div>
+                    <span
+                      className="text-[11px] font-semibold px-2 py-1 rounded-full"
+                      style={{ background: `${phase.color}20`, color: phase.color }}
+                    >
+                      {statusText}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-3">{phase.displayDate}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Section Navigation */}
+      <motion.section
+        variants={itemVariants}
+        className="sticky top-20 z-20"
+      >
+        <div
+          className="flex flex-wrap gap-2 p-3 rounded-2xl backdrop-blur"
+          style={{
+            background: 'rgba(13, 17, 23, 0.7)',
+            border: '1px solid rgba(30, 37, 48, 0.8)'
+          }}
+        >
+          {sectionLinks.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className="px-3 py-1.5 rounded-full text-xs font-medium text-gray-300 bg-white/5 hover:bg-white/10 hover:text-white transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Executive Summary */}
+      <motion.section id="summary" variants={itemVariants}>
+        <h2 className="text-xl font-semibold text-white mb-4">Executive Summary</h2>
+        <div
+          className="p-6 rounded-2xl"
+          style={{
+            background: 'rgba(13, 17, 23, 0.6)',
+            border: '1px solid rgba(30, 37, 48, 0.8)'
+          }}
+        >
+          <p className="text-sm text-gray-400 mb-4">
+            {timelineStatus.activeRuleCount} of {timelineStatus.totalRules} rules are currently in effect.
+          </p>
+          <ul className="space-y-3 text-sm text-gray-300">
+            {executiveSummary.map((item, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <span className="mt-1 h-2 w-2 rounded-full bg-[#00d4ff]" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.section>
+
+      {/* Risk Hotspots */}
+      <motion.section id="risk-hotspots" variants={itemVariants}>
+        <h2 className="text-xl font-semibold text-white mb-4">Risk Hotspots</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {riskHotspots.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.title}
+                className="p-5 rounded-2xl"
+                style={{
+                  background: 'rgba(26, 26, 40, 0.6)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)'
+                }}
+              >
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
+                  style={{ background: `${item.color}20` }}
+                >
+                  <Icon className="w-5 h-5" style={{ color: item.color }} />
+                </div>
+                <p className="text-base font-semibold text-white mb-2">{item.title}</p>
+                <p className="text-sm text-gray-400">{item.description}</p>
+              </div>
+            );
+          })}
         </div>
       </motion.section>
 
       {/* Enforcement Timeline Section */}
       <motion.section
+        id="timeline"
         variants={itemVariants}
         className="p-6 rounded-2xl"
         style={{
@@ -188,7 +385,7 @@ export default function Home() {
       </motion.section>
 
       {/* Quick Links Grid */}
-      <motion.section variants={itemVariants}>
+      <motion.section id="quick-access" variants={itemVariants}>
         <h2 className="text-xl font-semibold text-white mb-4">Quick Access</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickLinks.map((link, index) => {
@@ -246,7 +443,7 @@ export default function Home() {
       </motion.section>
 
       {/* Key Highlights */}
-      <motion.section variants={itemVariants}>
+      <motion.section id="highlights" variants={itemVariants}>
         <h2 className="text-xl font-semibold text-white mb-4">Key Highlights</h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {keyHighlights.map((item, index) => {
@@ -267,7 +464,7 @@ export default function Home() {
                 >
                   <Icon className="w-5 h-5" style={{ color: item.color }} />
                 </div>
-                <p className="text-2xl font-bold text-white mb-1">{item.value}</p>
+                <p className="text-3xl font-bold text-white mb-1">{item.value}</p>
                 <p className="text-sm font-medium text-gray-300">{item.title}</p>
                 <p className="text-xs text-gray-500 mt-1">{item.subtitle}</p>
               </motion.div>
@@ -277,7 +474,7 @@ export default function Home() {
       </motion.section>
 
       {/* Chapters Overview */}
-      <motion.section variants={itemVariants}>
+      <motion.section id="chapters" variants={itemVariants}>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-white">Chapters at a Glance</h2>
           <Link
@@ -314,7 +511,7 @@ export default function Home() {
       </motion.section>
 
       {/* Stakeholders Preview */}
-      <motion.section variants={itemVariants}>
+      <motion.section id="stakeholders" variants={itemVariants}>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-white">Key Stakeholders</h2>
           <Link
@@ -350,7 +547,7 @@ export default function Home() {
       </motion.section>
 
       {/* Penalty Scale Preview */}
-      <motion.section variants={itemVariants}>
+      <motion.section id="penalties" variants={itemVariants}>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-white">Penalty Framework</h2>
           <Link
@@ -398,6 +595,26 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </motion.section>
+
+      {/* FAQs */}
+      <motion.section id="faqs" variants={itemVariants}>
+        <h2 className="text-xl font-semibold text-white mb-4">FAQs</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {faqs.map((item) => (
+            <div
+              key={item.question}
+              className="p-5 rounded-2xl"
+              style={{
+                background: 'rgba(13, 17, 23, 0.6)',
+                border: '1px solid rgba(30, 37, 48, 0.8)'
+              }}
+            >
+              <p className="text-sm font-semibold text-white mb-2">{item.question}</p>
+              <p className="text-sm text-gray-400">{item.answer}</p>
+            </div>
+          ))}
         </div>
       </motion.section>
     </motion.div>
