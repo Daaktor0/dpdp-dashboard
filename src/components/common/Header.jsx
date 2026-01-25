@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Command, Filter } from 'lucide-react';
+import { Search, X, Filter } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import { sections, chapters } from '../../data/actStructure';
@@ -20,6 +20,26 @@ export default function Header({ sidebarCollapsed }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({ type: 'all', chapter: 'all' });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key.toLowerCase() !== 'k') return;
+      if (event.altKey || event.metaKey || event.ctrlKey) return;
+
+      const activeElement = document.activeElement;
+      const isEditable = activeElement?.isContentEditable;
+      const tagName = activeElement?.tagName;
+      if (isEditable || tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT') {
+        return;
+      }
+
+      event.preventDefault();
+      setSearchOpen(true);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Prepare search data and create index
   const searchData = useMemo(() =>
@@ -104,10 +124,11 @@ export default function Header({ sidebarCollapsed }) {
           }}
         >
           <Search size={18} />
-          <span className="hidden sm:inline text-sm">Search the Act...</span>
-          <div className="hidden md:flex items-center gap-1 text-xs text-gray-500 ml-2 md:ml-4">
-            <Command size={12} />
-            <span>K</span>
+          <span className="hidden sm:inline text-sm">Search the Act</span>
+          <div className="hidden md:flex items-center gap-2 text-xs text-gray-500 ml-2 md:ml-4">
+            <span>Press</span>
+            <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-gray-300">K</kbd>
+            <span>to search</span>
           </div>
         </button>
 

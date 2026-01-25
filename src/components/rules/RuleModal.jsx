@@ -28,7 +28,7 @@ const phaseColors = {
 };
 
 const phaseNames = {
-  1: 'Phase 1 (Active)',
+  1: 'Phase 1 Active',
   2: 'Phase 2 (Nov 2026)',
   3: 'Phase 3 (May 2027)'
 };

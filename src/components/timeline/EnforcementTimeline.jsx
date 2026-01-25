@@ -62,7 +62,7 @@ export default function EnforcementTimeline() {
       {/* Header with Countdown */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+          <h2 className="text-2xl md:text-3xl font-semibold text-white flex items-center gap-2">
             <Calendar className="w-5 h-5 text-[#00d4ff]" />
             DPDP Rules 2025 Enforcement Timeline
           </h2>
@@ -141,6 +141,31 @@ export default function EnforcementTimeline() {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* Segmented timeline */}
+      <div>
+        <div className="flex h-2 rounded-full overflow-hidden bg-white/5">
+          {phases.map((phase) => {
+            const phaseStatus = getPhaseStatus(phase.id);
+            return (
+              <div
+                key={phase.id}
+                className="h-full"
+                style={{
+                  width: `${100 / phases.length}%`,
+                  background: phase.color,
+                  opacity: phaseStatus === 'future' ? 0.35 : phaseStatus === 'upcoming' ? 0.65 : 1
+                }}
+              />
+            );
+          })}
+        </div>
+        <div className="mt-2 flex justify-between text-[11px] text-gray-500">
+          {phases.map((phase) => (
+            <span key={phase.id}>Phase {phase.id}</span>
+          ))}
         </div>
       </div>
 

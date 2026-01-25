@@ -69,7 +69,7 @@ export const rules = [
 (4) Rules 3, 5 to 16, 22 and 23 shall come into force eighteen months after the date of publication of this Gazette.`,
     keyPoints: [
       'Three-phase implementation approach',
-      'Phase 1: Rules 1, 2, 17-21 (immediate)',
+      'Phase 1 (Active): Rules 1, 2, 17-21',
       'Phase 2: Rule 4 (1 year - Nov 2026)',
       'Phase 3: Rules 3, 5-16, 22-23 (18 months - May 2027)'
     ]

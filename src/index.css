@@ -18,6 +18,11 @@
   --color-accent-success: #10b981;       /* Emerald green */
   --color-accent-warning: #ef4444;       /* Soft red for warnings */
 
+  /* Semantic Status Colors */
+  --color-status-active: #10b981;
+  --color-status-upcoming: #f59e0b;
+  --color-status-future: #64748b;
+
   /* Text Colors - High contrast on black */
   --color-text-primary: #ffffff;         /* Pure white */
   --color-text-secondary: #94a3b8;       /* Cool gray */
