@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dpdp-dashboard.vercel.app/sitemap.xml
+Sitemap: https://privacylawindia.vercel.app/sitemap.xml

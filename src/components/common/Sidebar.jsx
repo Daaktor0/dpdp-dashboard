@@ -113,8 +113,8 @@ export default function Sidebar({ collapsed, setCollapsed }) {
             <Scale className="w-5 h-5 text-white" />
           </div>
           <div className="whitespace-nowrap">
-            <h1 className="font-bold text-white text-lg">DPDP Act</h1>
-            <p className="text-xs text-gray-500">2023 Dashboard</p>
+            <h1 className="font-bold text-white text-lg">Privacy Law India</h1>
+            <p className="text-xs text-gray-500">Dashboard</p>
           </div>
         </motion.div>
 

@@ -39,7 +39,7 @@ export default function Header({ sidebarCollapsed }) {
   const { theme, toggleTheme } = useTheme();
 
   // Dynamic page title
-  const pageTitle = routeTitles[location.pathname] || 'DPDP Dashboard';
+  const pageTitle = routeTitles[location.pathname] || 'Privacy Law India';
 
   // Open search with K key (when not in an input)
   useEffect(() => {
