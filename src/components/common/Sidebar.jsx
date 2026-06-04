@@ -10,7 +10,9 @@ import {
   BookMarked,
   ChevronLeft,
   ChevronRight,
-  Scale
+  Scale,
+  Gavel,
+  Briefcase
 } from 'lucide-react';
 
 const navItems = [
@@ -56,6 +58,26 @@ const navItems = [
     label: 'Glossary',
     icon: BookMarked,
     description: 'Key definitions'
+  },
+  {
+    path: '/jurisprudence',
+    label: 'Case Law',
+    icon: Gavel,
+    description: 'Jurisprudence feed',
+    isNew: true
+  },
+  {
+    path: '/toolkit',
+    label: 'Compliance Toolkit',
+    icon: Briefcase,
+    description: 'Assess readiness',
+    isNew: true
+  },
+  {
+    path: '/gdpr-comparison',
+    label: 'DPDP vs GDPR',
+    icon: Scale,
+    description: 'Comparative analysis'
   }
 ];
 

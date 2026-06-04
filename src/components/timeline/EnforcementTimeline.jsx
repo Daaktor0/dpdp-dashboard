@@ -8,11 +8,10 @@ import {
   Timer,
   Circle,
   ChevronRight,
-  Landmark,
-  Users,
-  Shield,
   ArrowRight
 } from 'lucide-react';
+
+import { phaseIcons } from '../../utils/phaseUtils';
 
 import {
   phases,
@@ -21,11 +20,7 @@ import {
   getDaysUntil
 } from '../../data/enforcementTimeline';
 
-const phaseIcons = {
-  1: Landmark,
-  2: Users,
-  3: Shield
-};
+
 
 export default function EnforcementTimeline() {
   const [status, setStatus] = useState(getCurrentStatus());

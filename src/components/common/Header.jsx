@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Filter } from 'lucide-react';
+import { Search, X, Filter, Sun, Moon, Bell } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTheme } from '../../contexts/ThemeContext';
 
 import { sections, chapters } from '../../data/actStructure';
 import { definitions } from '../../data/definitions';
@@ -35,6 +36,7 @@ export default function Header({ sidebarCollapsed }) {
   const location = useLocation();
   const searchInputRef = useRef(null);
   const resultsContainerRef = useRef(null);
+  const { theme, toggleTheme } = useTheme();
 
   // Dynamic page title
   const pageTitle = routeTitles[location.pathname] || 'DPDP Dashboard';
@@ -212,21 +214,41 @@ export default function Header({ sidebarCollapsed }) {
           </div>
         </button>
 
-        {/* Quick Stats - Derived from data */}
-        <div className="hidden md:flex items-center gap-4 lg:gap-6">
-          <div className="text-right">
-            <p className="text-xs text-gray-500">Enacted</p>
-            <p className="text-sm font-medium text-white">11 Aug 2023</p>
+        {/* Right side actions */}
+        <div className="flex items-center gap-4 lg:gap-6">
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2">
+            <button
+              className="p-2 rounded-xl text-gray-400 hover:text-white transition-colors bg-white/5 border border-white/10 hover:bg-white/10"
+              title="Get notified of compliance dates"
+            >
+              <Bell size={18} />
+            </button>
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-xl text-gray-400 hover:text-white transition-colors bg-white/5 border border-white/10 hover:bg-white/10"
+              title="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
           </div>
-          <div className="w-px h-8 bg-white/10" />
-          <div className="text-right">
-            <p className="text-xs text-gray-500">Sections</p>
-            <p className="text-sm font-medium text-white">{sections.length}</p>
-          </div>
-          <div className="w-px h-8 bg-white/10" />
-          <div className="text-right">
-            <p className="text-xs text-gray-500">Chapters</p>
-            <p className="text-sm font-medium text-white">{chapters.length}</p>
+
+          {/* Quick Stats - Derived from data */}
+          <div className="hidden md:flex items-center gap-4 lg:gap-6">
+            <div className="text-right">
+              <p className="text-xs text-gray-500">Enacted</p>
+              <p className="text-sm font-medium text-white">11 Aug 2023</p>
+            </div>
+            <div className="w-px h-8 bg-white/10" />
+            <div className="text-right">
+              <p className="text-xs text-gray-500">Sections</p>
+              <p className="text-sm font-medium text-white">{sections.length}</p>
+            </div>
+            <div className="w-px h-8 bg-white/10" />
+            <div className="text-right">
+              <p className="text-xs text-gray-500">Chapters</p>
+              <p className="text-sm font-medium text-white">{chapters.length}</p>
+            </div>
           </div>
         </div>
       </motion.header>

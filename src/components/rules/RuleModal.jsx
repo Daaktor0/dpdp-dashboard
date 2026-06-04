@@ -5,27 +5,15 @@ import {
   Calendar,
   CheckCircle2,
   Timer,
-  Circle,
-  Landmark,
-  Users,
-  Shield,
   BookOpen,
   ExternalLink
 } from 'lucide-react';
 
+import { phaseIcons, phaseColors } from '../../utils/phaseUtils';
+
 import { getEnforcementStatus } from '../../data/rulesStructure';
 
-const phaseIcons = {
-  1: Landmark,
-  2: Users,
-  3: Shield
-};
 
-const phaseColors = {
-  1: '#10b981',
-  2: '#f59e0b',
-  3: '#3b82f6'
-};
 
 const phaseNames = {
   1: 'Phase 1 Active',

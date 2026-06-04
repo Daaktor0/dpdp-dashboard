@@ -204,15 +204,15 @@ const faqs = [
   },
   {
     question: 'Is Phase 1 active already?',
-    answer: 'Yes. Phase 1 has been active since November 13, 2025.'
+    answer: 'Yes. Phase 1 has been active since November 14, 2025.'
   },
   {
     question: 'When does Phase 2 start?',
-    answer: 'Phase 2 begins on November 13, 2026, one year after the Rules were published.'
+    answer: 'Phase 2 begins on November 14, 2026, one year after the Rules were published.'
   },
   {
     question: 'When does Phase 3 start?',
-    answer: 'Phase 3 begins on May 13, 2027, eighteen months after publication.'
+    answer: 'Phase 3 begins on May 14, 2027, eighteen months after publication.'
   },
   {
     question: 'What are the five Data Principal rights?',
@@ -339,10 +339,24 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap items-center gap-6 text-sm">
-              <div className="flex items-center gap-2">
-                <Landmark className="w-4 h-4 text-[#00d4ff]" />
-                <span className="text-gray-400">Enacted:</span>
-                <span className="text-white font-medium">{actInfo.dateEnacted}</span>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <Landmark className="w-4 h-4 text-[#00d4ff]" />
+                  <span className="text-gray-400">Act Enacted:</span>
+                  <span className="text-white font-medium">{actInfo.dateEnacted}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-[#10b981]" />
+                  <span className="text-gray-400">Rules Notified:</span>
+                  <a 
+                    href="https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-[#10b981] font-medium hover:underline transition-colors flex items-center gap-1"
+                  >
+                    14 Nov 2025
+                  </a>
+                </div>
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-500">
                 Last updated: {typeof __BUILD_DATE__ !== 'undefined' ? new Date(__BUILD_DATE__).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}

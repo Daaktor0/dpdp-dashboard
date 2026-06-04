@@ -2,7 +2,7 @@
 // Based on Rule 1 (Short title and commencement)
 
 export const timelineInfo = {
-  baseDate: '2025-11-13', // Date of publication in Official Gazette
+  baseDate: '2025-11-14', // Date of publication in Official Gazette
   title: 'DPDP Rules 2025 Enforcement Timeline',
   description: 'Three-phase implementation of the Digital Personal Data Protection Rules, 2025'
 };
@@ -12,8 +12,8 @@ export const phases = [
     id: 1,
     name: 'Phase 1',
     shortName: 'Foundation',
-    date: '2025-11-13',
-    displayDate: 'November 13, 2025',
+    date: '2025-11-14',
+    displayDate: 'November 14, 2025',
     rules: [1, 2, 17, 18, 19, 20, 21],
     ruleCount: 7,
     color: '#10b981', // Green
@@ -38,8 +38,8 @@ export const phases = [
     id: 2,
     name: 'Phase 2',
     shortName: 'Consent',
-    date: '2026-11-13',
-    displayDate: 'November 13, 2026',
+    date: '2026-11-14',
+    displayDate: 'November 14, 2026',
     rules: [4],
     ruleCount: 1,
     color: '#f59e0b', // Amber
@@ -63,8 +63,8 @@ export const phases = [
     id: 3,
     name: 'Phase 3',
     shortName: 'Full Compliance',
-    date: '2027-05-13',
-    displayDate: 'May 13, 2027',
+    date: '2027-05-14',
+    displayDate: 'May 14, 2027',
     rules: [3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 23],
     ruleCount: 15,
     color: '#3b82f6', // Blue

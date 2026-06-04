@@ -11,13 +11,11 @@ import {
   Timer,
   Circle,
   BookOpen,
-  FileText,
   ExternalLink,
-  Landmark,
-  Users,
-  Shield,
   ListTree
 } from 'lucide-react';
+
+import { phaseIcons, phaseColors } from '../utils/phaseUtils';
 
 import {
   rulesInfo,
@@ -41,17 +39,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 }
 };
 
-const phaseIcons = {
-  1: Landmark,
-  2: Users,
-  3: Shield
-};
 
-const phaseColors = {
-  1: '#10b981',
-  2: '#f59e0b',
-  3: '#3b82f6'
-};
 
 export default function Rules() {
   const [searchParams, setSearchParams] = useSearchParams();
