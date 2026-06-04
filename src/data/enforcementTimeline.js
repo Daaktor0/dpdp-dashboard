@@ -168,7 +168,13 @@ export const getPhaseStatus = (phaseId) => {
   const phaseDate = new Date(phase.date);
 
   if (today >= phaseDate) {
-    return 'active';
+    // Check if this is the latest active phase (i.e., the "current" one)
+    const currentPhase = getCurrentPhase();
+    if (currentPhase && currentPhase.id === phaseId) {
+      return 'active';
+    }
+    // Past phase — its window has ended
+    return 'completed';
   }
 
   // Check if next phase
@@ -236,7 +242,7 @@ export const getCurrentStatus = () => {
     progress,
     activeRuleCount: activeRules.length,
     activeRules,
-    totalRules: 23
+    totalRules: phases.reduce((sum, p) => sum + p.rules.length, 0)
   };
 };
 

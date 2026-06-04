@@ -162,7 +162,7 @@ export default function Rules() {
           style={{ background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.2)' }}
         >
           <p className="text-2xl font-bold text-amber-400">
-            {status.nextPhase ? status.nextPhase.ruleCount : 0}
+            {status.nextPhase ? status.nextPhase.rules.length : 0}
           </p>
           <p className="text-xs text-gray-400">Coming Next</p>
         </div>
@@ -170,14 +170,14 @@ export default function Rules() {
           className="p-4 rounded-xl"
           style={{ background: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.2)' }}
         >
-          <p className="text-2xl font-bold text-blue-400">{rulesInfo.totalRules}</p>
+          <p className="text-2xl font-bold text-blue-400">{rules.length}</p>
           <p className="text-xs text-gray-400">Total Rules</p>
         </div>
         <div
           className="p-4 rounded-xl"
           style={{ background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.2)' }}
         >
-          <p className="text-2xl font-bold text-purple-400">{rulesInfo.totalSchedules}</p>
+          <p className="text-2xl font-bold text-purple-400">{schedules.length}</p>
           <p className="text-xs text-gray-400">Schedules</p>
         </div>
       </motion.div>
@@ -196,7 +196,7 @@ export default function Rules() {
           >
             <span className="flex items-center gap-2">
               <FileText className="w-4 h-4" />
-              Rules ({rulesInfo.totalRules})
+              Rules ({rules.length})
             </span>
           </button>
           <button
@@ -209,7 +209,7 @@ export default function Rules() {
           >
             <span className="flex items-center gap-2">
               <ListTree className="w-4 h-4" />
-              Schedules ({rulesInfo.totalSchedules})
+              Schedules ({schedules.length})
             </span>
           </button>
         </div>
@@ -250,7 +250,7 @@ export default function Rules() {
                 style={{
                   background: isSelected ? `${phaseColors[phase.id]}20` : 'rgba(26, 26, 40, 0.6)',
                   borderColor: phaseColors[phase.id],
-                  ringColor: isSelected ? phaseColors[phase.id] : 'transparent',
+                  boxShadow: isSelected ? `0 0 0 2px ${phaseColors[phase.id]}` : 'none',
                   color: isSelected ? phaseColors[phase.id] : '#9ca3af'
                 }}
               >

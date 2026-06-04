@@ -20,6 +20,8 @@ import { actInfo, chapters } from '../data/actStructure';
 import { penalties, penaltyStats } from '../data/penalties';
 import { stakeholders } from '../data/stakeholders';
 import { phases, getPhaseStatus, getDaysUntil } from '../data/enforcementTimeline';
+import { definitions } from '../data/definitions';
+import { rules } from '../data/rulesStructure';
 import EnforcementTimeline from '../components/timeline/EnforcementTimeline';
 
 const containerVariants = {
@@ -68,7 +70,7 @@ const quickLinks = [
     icon: Calendar,
     path: '/rules',
     color: '#10b981',
-    stats: '23 Rules',
+    stats: `${rules.length} Rules`,
     isNew: true
   },
   {
@@ -101,7 +103,7 @@ const quickLinks = [
     icon: BookMarked,
     path: '/glossary',
     color: '#3b82f6',
-    stats: '28 Definitions'
+    stats: `${definitions.length} Definitions`
   }
 ];
 
@@ -343,7 +345,7 @@ export default function Home() {
                 <span className="text-white font-medium">{actInfo.dateEnacted}</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-500">
-                Last updated on: January 24, 2026
+                Last updated: {typeof __BUILD_DATE__ !== 'undefined' ? new Date(__BUILD_DATE__).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}
               </div>
             </div>
           </div>

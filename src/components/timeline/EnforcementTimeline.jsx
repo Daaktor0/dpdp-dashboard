@@ -41,7 +41,7 @@ export default function EnforcementTimeline() {
 
   const getStatusIcon = (phaseId) => {
     const phaseStatus = getPhaseStatus(phaseId);
-    if (phaseStatus === 'active') {
+    if (phaseStatus === 'active' || phaseStatus === 'completed') {
       return <CheckCircle2 className="w-5 h-5" />;
     }
     if (phaseStatus === 'upcoming') {
@@ -53,6 +53,7 @@ export default function EnforcementTimeline() {
   const getStatusLabel = (phaseId) => {
     const phaseStatus = getPhaseStatus(phaseId);
     if (phaseStatus === 'active') return 'Active';
+    if (phaseStatus === 'completed') return 'Completed';
     if (phaseStatus === 'upcoming') return 'Upcoming';
     return 'Future';
   };
@@ -126,14 +127,14 @@ export default function EnforcementTimeline() {
               >
                 <div
                   className={`w-4 h-4 rounded-full border-2 -mt-1 ${
-                    phaseStatus === 'active'
+                    phaseStatus === 'active' || phaseStatus === 'completed'
                       ? 'bg-white border-white'
                       : phaseStatus === 'upcoming'
                       ? 'bg-transparent border-white/50'
                       : 'bg-transparent border-white/20'
                   }`}
                   style={
-                    phaseStatus === 'active'
+                    phaseStatus === 'active' || phaseStatus === 'completed'
                       ? { boxShadow: `0 0 12px ${phase.color}` }
                       : {}
                   }
@@ -156,7 +157,7 @@ export default function EnforcementTimeline() {
                 style={{
                   width: `${100 / phases.length}%`,
                   background: phase.color,
-                  opacity: phaseStatus === 'future' ? 0.35 : phaseStatus === 'upcoming' ? 0.65 : 1
+                  opacity: phaseStatus === 'future' ? 0.35 : phaseStatus === 'upcoming' ? 0.65 : phaseStatus === 'completed' ? 0.7 : 1
                 }}
               />
             );
@@ -182,13 +183,11 @@ export default function EnforcementTimeline() {
               key={phase.id}
               whileHover={{ y: -2 }}
               onClick={() => setExpandedPhase(isExpanded ? null : phase.id)}
-              className={`relative p-5 rounded-2xl cursor-pointer transition-all overflow-hidden ${
-                phaseStatus === 'active' ? 'ring-2' : ''
-              }`}
+              className="relative p-5 rounded-2xl cursor-pointer transition-all overflow-hidden"
               style={{
                 background: phase.bgColor,
                 border: `1px solid ${phase.borderColor}`,
-                ringColor: phaseStatus === 'active' ? phase.color : 'transparent'
+                boxShadow: phaseStatus === 'active' ? `0 0 0 2px ${phase.color}, 0 0 20px ${phase.color}40` : 'none'
               }}
             >
               {/* Status Badge */}
@@ -197,6 +196,8 @@ export default function EnforcementTimeline() {
                   className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
                     phaseStatus === 'active'
                       ? 'bg-green-500/20 text-green-400'
+                      : phaseStatus === 'completed'
+                      ? 'bg-blue-500/20 text-blue-400'
                       : phaseStatus === 'upcoming'
                       ? 'bg-amber-500/20 text-amber-400'
                       : 'bg-gray-500/20 text-gray-400'
@@ -236,7 +237,7 @@ export default function EnforcementTimeline() {
               {/* Rules Count */}
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">
-                  {phase.ruleCount} rule{phase.ruleCount > 1 ? 's' : ''}
+                  {phase.rules.length} rule{phase.rules.length > 1 ? 's' : ''}
                 </span>
                 <ChevronRight
                   className={`w-4 h-4 text-gray-500 transition-transform ${

@@ -1,7 +1,7 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, Filter } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { sections, chapters } from '../../data/actStructure';
 import { definitions } from '../../data/definitions';
@@ -15,14 +15,39 @@ const filterTypes = [
   { id: 'stakeholder', label: 'Stakeholders' }
 ];
 
+// Route-to-title mapping for dynamic page title
+const routeTitles = {
+  '/': 'Overview',
+  '/navigator': 'Act Navigator',
+  '/rules': 'Rules 2025',
+  '/lifecycle': 'Data Lifecycle',
+  '/stakeholders': 'Stakeholders',
+  '/penalties': 'Penalties',
+  '/glossary': 'Glossary'
+};
+
 export default function Header({ sidebarCollapsed }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({ type: 'all', chapter: 'all' });
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchInputRef = useRef(null);
+  const resultsContainerRef = useRef(null);
 
+  // Dynamic page title
+  const pageTitle = routeTitles[location.pathname] || 'DPDP Dashboard';
+
+  // Open search with K key (when not in an input)
   useEffect(() => {
     const handleKeyDown = (event) => {
+      // Escape to close search
+      if (event.key === 'Escape' && searchOpen) {
+        handleClose();
+        return;
+      }
+
       if (event.key.toLowerCase() !== 'k') return;
       if (event.altKey || event.metaKey || event.ctrlKey) return;
 
@@ -39,7 +64,14 @@ export default function Header({ sidebarCollapsed }) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [searchOpen]);
+
+  // Focus input when search opens
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      setTimeout(() => searchInputRef.current?.focus(), 100);
+    }
+  }, [searchOpen]);
 
   // Prepare search data and create index
   const searchData = useMemo(() =>
@@ -64,17 +96,65 @@ export default function Header({ sidebarCollapsed }) {
     }));
   }, [searchQuery, filters, fuse]);
 
+  // Reset selected index when results change
+  useEffect(() => {
+    setSelectedIndex(-1);
+  }, [results]);
+
+  // Keyboard navigation handler for search results
+  const handleSearchKeyDown = useCallback((event) => {
+    if (!searchOpen || results.length === 0) return;
+
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        setSelectedIndex(prev => {
+          const next = prev < results.length - 1 ? prev + 1 : 0;
+          // Scroll selected item into view
+          const container = resultsContainerRef.current;
+          if (container) {
+            const items = container.querySelectorAll('[data-result-item]');
+            items[next]?.scrollIntoView({ block: 'nearest' });
+          }
+          return next;
+        });
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        setSelectedIndex(prev => {
+          const next = prev > 0 ? prev - 1 : results.length - 1;
+          const container = resultsContainerRef.current;
+          if (container) {
+            const items = container.querySelectorAll('[data-result-item]');
+            items[next]?.scrollIntoView({ block: 'nearest' });
+          }
+          return next;
+        });
+        break;
+      case 'Enter':
+        event.preventDefault();
+        if (selectedIndex >= 0 && selectedIndex < results.length) {
+          handleResultClick(results[selectedIndex].path);
+        }
+        break;
+      default:
+        break;
+    }
+  }, [searchOpen, results, selectedIndex]);
+
   const handleResultClick = (path) => {
     navigate(path);
     setSearchOpen(false);
     setSearchQuery('');
     setFilters({ type: 'all', chapter: 'all' });
+    setSelectedIndex(-1);
   };
 
   const handleClose = () => {
     setSearchOpen(false);
     setSearchQuery('');
     setFilters({ type: 'all', chapter: 'all' });
+    setSelectedIndex(-1);
   };
 
   // Render highlighted text
@@ -110,8 +190,8 @@ export default function Header({ sidebarCollapsed }) {
         }}
       >
         {/* Page Title - Dynamic based on route */}
-        <div>
-          {/* This can be made dynamic with useLocation */}
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-semibold text-white hidden sm:block">{pageTitle}</h2>
         </div>
 
         {/* Search Button */}
@@ -132,7 +212,7 @@ export default function Header({ sidebarCollapsed }) {
           </div>
         </button>
 
-        {/* Quick Stats - Hidden on mobile */}
+        {/* Quick Stats - Derived from data */}
         <div className="hidden md:flex items-center gap-4 lg:gap-6">
           <div className="text-right">
             <p className="text-xs text-gray-500">Enacted</p>
@@ -141,12 +221,12 @@ export default function Header({ sidebarCollapsed }) {
           <div className="w-px h-8 bg-white/10" />
           <div className="text-right">
             <p className="text-xs text-gray-500">Sections</p>
-            <p className="text-sm font-medium text-white">44</p>
+            <p className="text-sm font-medium text-white">{sections.length}</p>
           </div>
           <div className="w-px h-8 bg-white/10" />
           <div className="text-right">
             <p className="text-xs text-gray-500">Chapters</p>
-            <p className="text-sm font-medium text-white">9</p>
+            <p className="text-sm font-medium text-white">{chapters.length}</p>
           </div>
         </div>
       </motion.header>
@@ -171,6 +251,9 @@ export default function Header({ sidebarCollapsed }) {
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
               transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
               className="fixed top-16 md:top-20 left-1/2 -translate-x-1/2 z-50 w-[95%] md:w-full max-w-2xl mx-auto"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Search the DPDP Act"
             >
               <div
                 className="rounded-2xl overflow-hidden"
@@ -180,21 +263,28 @@ export default function Header({ sidebarCollapsed }) {
                   border: '1px solid rgba(255, 255, 255, 0.1)',
                   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
                 }}
+                onKeyDown={handleSearchKeyDown}
               >
                 {/* Search Input */}
                 <div className="flex items-center gap-3 p-4 border-b border-white/5">
                   <Search className="text-gray-400 flex-shrink-0" size={20} />
                   <input
+                    ref={searchInputRef}
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search sections, definitions, stakeholders..."
                     className="flex-1 bg-transparent text-white placeholder-gray-500 outline-none text-base md:text-lg"
                     autoFocus
+                    aria-label="Search query"
+                    aria-autocomplete="list"
+                    aria-controls="search-results"
+                    aria-activedescendant={selectedIndex >= 0 ? `search-result-${selectedIndex}` : undefined}
                   />
                   <button
                     onClick={handleClose}
                     className="p-2 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors"
+                    aria-label="Close search"
                   >
                     <X size={18} />
                   </button>
@@ -236,17 +326,31 @@ export default function Header({ sidebarCollapsed }) {
                 </div>
 
                 {/* Results */}
-                <div className="max-h-80 md:max-h-96 overflow-y-auto">
+                <div
+                  id="search-results"
+                  ref={resultsContainerRef}
+                  className="max-h-80 md:max-h-96 overflow-y-auto"
+                  role="listbox"
+                  aria-label="Search results"
+                >
                   {results.length > 0 ? (
                     <div className="p-2">
                       {results.map((result, index) => (
                         <motion.button
                           key={`${result.type}-${result.id}`}
+                          id={`search-result-${index}`}
+                          data-result-item
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.03 }}
                           onClick={() => handleResultClick(result.path)}
-                          className="w-full flex items-start gap-3 p-3 rounded-xl text-left hover:bg-white/5 transition-colors group"
+                          className={`w-full flex items-start gap-3 p-3 rounded-xl text-left transition-colors group ${
+                            selectedIndex === index
+                              ? 'bg-white/10 ring-1 ring-[#00d4ff]/40'
+                              : 'hover:bg-white/5'
+                          }`}
+                          role="option"
+                          aria-selected={selectedIndex === index}
                         >
                           <span className={`
                             px-2 py-1 rounded text-xs font-medium uppercase flex-shrink-0

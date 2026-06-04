@@ -2,21 +2,21 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, CheckCircle } from 'lucide-react';
 
-const DISCLAIMER_KEY = 'dpdp_disclaimer_acknowledged';
+const DISCLAIMER_KEY = 'dpdp_disclaimer_v1';
 
 export default function DisclaimerModal() {
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [acknowledged, setAcknowledged] = useState(false);
 
   useEffect(() => {
-    const isAcknowledged = sessionStorage.getItem(DISCLAIMER_KEY);
+    const isAcknowledged = localStorage.getItem(DISCLAIMER_KEY);
     if (!isAcknowledged) {
       setShowDisclaimer(true);
     }
   }, []);
 
   const handleContinue = () => {
-    sessionStorage.setItem(DISCLAIMER_KEY, 'true');
+    localStorage.setItem(DISCLAIMER_KEY, 'true');
     setShowDisclaimer(false);
   };
 
@@ -39,6 +39,9 @@ export default function DisclaimerModal() {
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-full max-w-lg mx-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="disclaimer-title"
           >
             <div
               className="rounded-2xl overflow-hidden"
@@ -59,7 +62,7 @@ export default function DisclaimerModal() {
                     <AlertTriangle className="text-[#00d4ff]" size={24} />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold text-white">Legal Disclaimer</h2>
+                    <h2 id="disclaimer-title" className="text-xl font-semibold text-white">Legal Disclaimer</h2>
                     <p className="text-sm text-gray-400">Please read before continuing</p>
                   </div>
                 </div>
