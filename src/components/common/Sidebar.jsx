@@ -12,7 +12,6 @@ import {
   ChevronRight,
   Scale,
   Gavel,
-  Briefcase
 } from 'lucide-react';
 
 const navItems = [
@@ -64,13 +63,6 @@ const navItems = [
     label: 'Case Law',
     icon: Gavel,
     description: 'Jurisprudence feed',
-    isNew: true
-  },
-  {
-    path: '/toolkit',
-    label: 'Compliance Toolkit',
-    icon: Briefcase,
-    description: 'Assess readiness',
     isNew: true
   },
   {

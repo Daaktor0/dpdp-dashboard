@@ -16,7 +16,6 @@ const Stakeholders = lazy(() => import('./pages/Stakeholders'));
 const Penalties = lazy(() => import('./pages/Penalties'));
 const Glossary = lazy(() => import('./pages/Glossary'));
 const CaseLaw = lazy(() => import('./pages/CaseLaw'));
-const ComplianceToolkit = lazy(() => import('./pages/ComplianceToolkit'));
 const GdprComparison = lazy(() => import('./pages/GdprComparison'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -83,7 +82,6 @@ function App() {
                 <Route path="/penalties" element={<Penalties />} />
                 <Route path="/glossary" element={<Glossary />} />
                 <Route path="/jurisprudence" element={<CaseLaw />} />
-                <Route path="/toolkit" element={<ComplianceToolkit />} />
                 <Route path="/gdpr-comparison" element={<GdprComparison />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

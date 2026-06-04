@@ -1,5 +1,47 @@
+// Vercel Serverless Function — Case Law search via the official IndianKanoon API.
+//
+// Auth: set INDIANKANOON_API_KEY in your Vercel project env vars.
+//   IMPORTANT: do NOT hardcode the token here. A previously committed token
+//   was exposed in git history and should be rotated in your IndianKanoon
+//   account settings.
+//
+// Query params:
+//   q       - free-text search terms (optional)
+//   mode    - "recent" (date-restricted) | default (relevance)
+//   section - optional Act section to bias the query
+//   page    - page number (IndianKanoon pages start at 0)
+
+const BASE_TERMS =
+  'Digital Personal Data Protection ANDD (privacy ORR "personal data" ORR "data protection")';
+
+function buildFormInput({ q, mode, section }) {
+  const parts = [];
+
+  if (q && q.trim()) {
+    parts.push(q.trim());
+    parts.push('ANDD (privacy ORR "data protection" ORR "personal data")');
+  } else {
+    parts.push(BASE_TERMS);
+  }
+
+  if (section && section !== 'all') {
+    parts.push(`ANDD "Section ${section}"`);
+  }
+
+  parts.push('doctypes: judgments');
+
+  if (mode === 'recent') {
+    const from = new Date();
+    from.setFullYear(from.getFullYear() - 4);
+    const dd = String(from.getDate()).padStart(2, '0');
+    const mm = String(from.getMonth() + 1).padStart(2, '0');
+    parts.push(`fromdate: ${dd}-${mm}-${from.getFullYear()}`);
+  }
+
+  return parts.join(' ');
+}
+
 export default async function handler(req, res) {
-  // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
@@ -13,22 +55,30 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { section } = req.query;
-  const apiKey = process.env.INDIANKANOON_API_KEY || '752aa9e542e317070ba0c7c5a59d7ac1f5ab2ec3';
-  
-  // Base query for the Act
-  let query = 'Digital Personal Data Protection Act';
-  if (section && section !== 'all') {
-    query += ` ${section}`;
+  const { q = '', mode = '', section = '', page = '0' } = req.query;
+  const apiKey = process.env.INDIANKANOON_API_KEY;
+
+  if (!apiKey) {
+    res.status(200).json({
+      success: false,
+      configured: false,
+      error: 'INDIANKANOON_API_KEY is not set on the server.',
+      data: [],
+      source: 'none'
+    });
+    return;
   }
 
+  const formInput = buildFormInput({ q, mode, section });
+  const pageNum = Number.isNaN(parseInt(page, 10)) ? 0 : parseInt(page, 10);
+  const apiUrl = `https://api.indiankanoon.org/search/?formInput=${encodeURIComponent(
+    formInput
+  )}&pagenum=${pageNum}`;
+
   try {
-    const response = await fetch(`https://api.indiankanoon.org/search/?formInput=${encodeURIComponent(query)}&pagenum=0`, {
+    const response = await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-        'Authorization': `Token ${apiKey}`,
-        'Content-Type': 'application/json'
-      }
+      headers: { Authorization: `Token ${apiKey}`, Accept: 'application/json' }
     });
 
     if (!response.ok) {
@@ -36,46 +86,35 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
+    const clean = (s) => (s ? String(s).replace(/<[^>]+>/g, '').trim() : '');
 
-    // Map IndianKanoon response to our frontend schema
-    const cases = (data.docs || []).map(doc => {
-      // Strip HTML tags from headline for a clean summary, or keep them if rendering safely
-      const cleanSummary = doc.headline ? doc.headline.replace(/<[^>]+>/g, '') : 'No summary available.';
-      
-      return {
-        id: doc.tid.toString(),
-        title: doc.title ? doc.title.replace(/<[^>]+>/g, '') : 'Unknown Case',
-        date: doc.publishdate || 'Unknown Date',
-        court: doc.docsource || 'Unknown Court',
-        summary: cleanSummary,
-        url: `https://indiankanoon.org/doc/${doc.tid}/`
-      };
-    });
+    const cases = (data.docs || []).map((doc) => ({
+      id: doc.tid != null ? doc.tid.toString() : Math.random().toString(36).slice(2),
+      title: clean(doc.title) || 'Untitled judgment',
+      date: doc.publishdate || '',
+      court: clean(doc.docsource) || 'Unknown Court',
+      summary: clean(doc.headline) || 'No summary available.',
+      url: doc.tid != null ? `https://indiankanoon.org/doc/${doc.tid}/` : 'https://indiankanoon.org/',
+      source: 'live'
+    }));
 
     res.status(200).json({
       success: true,
+      configured: true,
       count: cases.length,
+      total: data.found || cases.length,
+      query: formInput,
       data: cases,
       source: 'IndianKanoon API'
     });
   } catch (error) {
     console.error('Error fetching from IndianKanoon:', error);
-    
-    // Fallback mock data in case of error (e.g. rate limit, bad token)
     res.status(200).json({
       success: false,
+      configured: true,
       error: error.message,
-      data: [
-        {
-          id: '12345',
-          title: 'Justice K.S. Puttaswamy (Retd.) vs Union Of India And Ors.',
-          date: '2017-08-24',
-          court: 'Supreme Court of India',
-          summary: 'Landmark judgment declaring the right to privacy as a fundamental right under Article 21 of the Constitution. This forms the jurisprudential basis for the DPDP Act.',
-          url: 'https://indiankanoon.org/doc/91938676/'
-        }
-      ],
-      source: 'Mock Fallback'
+      data: [],
+      source: 'error'
     });
   }
 }
