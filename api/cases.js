@@ -14,6 +14,41 @@
 const BASE_TERMS =
   'Digital Personal Data Protection ANDD (privacy ORR "personal data" ORR "data protection")';
 
+// A result is only kept if its title/summary touches one of these topics.
+// Keeps the feed strictly about data protection / privacy / breaches and the
+// laws that surround them, even when IndianKanoon's ranking returns tangents.
+const RELEVANCE_TERMS = [
+  'data protection',
+  'personal data',
+  'data breach',
+  'data privacy',
+  'privacy',
+  'right to privacy',
+  'puttaswamy',
+  'aadhaar',
+  'information technology act',
+  'it act',
+  'sensitive personal',
+  'data principal',
+  'data fiduciary',
+  'data protection board',
+  'dpdp',
+  'surveillance',
+  'interception',
+  'right to be forgotten',
+  'data localis',
+  'data localiz',
+  'cyber',
+  'identity theft',
+  'unauthorised access',
+  'unauthorized access'
+];
+
+function isRelevant(c) {
+  const hay = `${c.title} ${c.summary} ${c.court}`.toLowerCase();
+  return RELEVANCE_TERMS.some((term) => hay.includes(term));
+}
+
 function buildFormInput({ q, mode, section }) {
   const parts = [];
 
@@ -88,7 +123,7 @@ export default async function handler(req, res) {
     const data = await response.json();
     const clean = (s) => (s ? String(s).replace(/<[^>]+>/g, '').trim() : '');
 
-    const cases = (data.docs || []).map((doc) => ({
+    const mapped = (data.docs || []).map((doc) => ({
       id: doc.tid != null ? doc.tid.toString() : Math.random().toString(36).slice(2),
       title: clean(doc.title) || 'Untitled judgment',
       date: doc.publishdate || '',
@@ -98,10 +133,14 @@ export default async function handler(req, res) {
       source: 'live'
     }));
 
+    // Keep only on-topic judgments (data protection / privacy / breach / related law).
+    const cases = mapped.filter(isRelevant);
+
     res.status(200).json({
       success: true,
       configured: true,
       count: cases.length,
+      rawCount: mapped.length,
       total: data.found || cases.length,
       query: formInput,
       data: cases,
